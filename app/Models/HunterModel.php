@@ -10,6 +10,8 @@ class HunterModel extends Model
     use HasFactory;
     protected $table = "hunter";
     protected $primaryKey = 'id';
+    const CREATED_AT = 'data_cadastro';
+    const UPDATED_AT = 'data_atualizacao';
     protected $fillable = [
         'nome_hunter',
         'idade_hunter',

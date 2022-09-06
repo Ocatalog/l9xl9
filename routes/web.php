@@ -27,10 +27,7 @@ Route::controller(HunterController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/create', 'create');
     Route::get('/update/{id}', 'edit');
-    // Undefined variable $hunter
     Route::post('create', 'store');
-    // The PATCH method is not supported for this route. Supported methods: GET, HEAD, POST.
     Route::patch('/update/{id}', 'update');
-    // The GET method is not supported for this route. Supported methods: DELETE.
     Route::delete('/delete/{id}', 'destroy'); 
 });
