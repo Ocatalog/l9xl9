@@ -61,8 +61,8 @@ class HunterController extends Controller
             'tipo_sangue.required' => 'É obrigatório definir o tipo sanguíneo do Hunter.',
             'tipo_sangue.max' => 'O tipo sanguíneo do Hunter deve possui no máximo 3 caracteres.',
         ]);
-        HunterModel::saved($validacoes);
-        return view('index');
+        HunterModel::create($validacoes);
+        return redirect()->to('/');   
     }
 
     /**
@@ -73,7 +73,7 @@ class HunterController extends Controller
      */
     public function show($id)
     {
-        $hunter = HunterModel::find($id)->first();
+        $hunter = HunterModel::find($id);
         return view('update', compact('hunter'));
     }
 
@@ -85,7 +85,7 @@ class HunterController extends Controller
      */
     public function edit($id)
     {
-        $hunter = HunterModel::find($id)->first();
+        $hunter = HunterModel::find($id);
         return view('update', compact('hunter'));
     }
 
@@ -125,7 +125,7 @@ class HunterController extends Controller
             'tipo_sangue.max' => 'O tipo sanguíneo do Hunter deve possui no máximo 3 caracteres.',
         ]);
         HunterModel::where('id',$id)->update($validacoes);
-        return view ('index');     
+        return redirect()->to('/');        
     }
 
     /**
@@ -137,6 +137,6 @@ class HunterController extends Controller
     public function destroy($id)
     {
         HunterModel::where('id',$id)->delete();
-        return view('index');     
+        return redirect()->to('/');      
     }
 }

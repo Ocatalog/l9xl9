@@ -51,6 +51,7 @@
                                     </td>
                                 </tr>
 	                        @endforeach
+                        </tbody>
                     </table>
                     {{ $hunter->links() }}
                 </div>
