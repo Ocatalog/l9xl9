@@ -21,8 +21,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::resource("/hunter", HunterController::class);
-
 Route::controller(HunterController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/create', 'create');
