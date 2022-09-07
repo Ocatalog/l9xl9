@@ -25,7 +25,7 @@ Excluir determinado hunter | Funcionando
   
 <h1 align="center"> Cadastro de hunter </h1>
 
-![](https://github.com/Iury189/l9xcl9/blob/main/public/imagens/Cadastro.png?raw=true)
+![](https://github.com/Iury189/l9xl9/blob/main/public/imagens/Cadastro.png?raw=true)
  
 <h1 align="center"> Atualização de hunter </h1>
 
