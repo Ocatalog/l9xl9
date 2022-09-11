@@ -13,50 +13,41 @@
                 </div>
                 <br>
                 <div class="card-body">
+                    <!-- Errors Validation Messages -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <!-- Form -->
                     <form action="{{ url("create") }}" method="POST">
                         {{ csrf_field() }}
                         <div class="form_group">
                             <div class="form_group">
                                 <div for="nome_hunter">Nome:
                                     <input type="text" class="form-control" name="nome_hunter" placeholder="Digite o nome do Hunter" maxlength="50" value="{{ old('nome_hunter') }}">
-                                    @error('nome_hunter')
-                                        <div class="alert alert-danger" role="alert"> 
-                                            {{$message}}
-                                        </div>    
-                                    @enderror
                                 </div>
                             </div>
                             <br>
                             <div class="form_group">
                                 <div for="idade_hunter">Idade:
                                     <input type="text" class="form-control" name="idade_hunter" placeholder="Digite a idade do Hunter" onkeypress="$(this).mask('00', {reverse: true});" value="{{ old('idade_hunter') }}">
-                                    @error('idade_hunter')
-                                        <div class="alert alert-danger" role="alert"> 
-                                            {{$message}}
-                                        </div>    
-                                    @enderror
                                 </div>
                             </div>
                             <br>
                             <div class="form_group">
                                 <div for="altura_hunter">Altura:
                                     <input type="text" class="form-control" name="altura_hunter" placeholder="Digite a altura do Hunter"onkeypress="$(this).mask('0.00', {reverse: true});" value="{{ old('altura_hunter') }}">
-                                    @error('altura_hunter')
-                                        <div class="alert alert-danger" role="alert"> 
-                                            {{$message}}
-                                        </div>    
-                                    @enderror
                                 </div>
                             </div>
                             <br>
                             <div class="form_group">
                                 <div for="peso_hunter">Peso:
                                     <input type="text" class="form-control" name="peso_hunter" placeholder="Digite o peso do Hunter" onkeypress="$(this).mask('000.00', {reverse: true});" value="{{ old('peso_hunter') }}">
-                                    @error('peso_hunter')
-                                        <div class="alert alert-danger" role="alert"> 
-                                            {{$message}}
-                                        </div>    
-                                    @enderror
                                 </div>
                             </div>
                             <br>
@@ -87,11 +78,6 @@
                                         <option {{ old('tipo_hunter') == 'Hunter Provisório' ? 'selected' : ''}} value="Hunter Provisório">Hunter Provisório</option>
                                         <option {{ old('tipo_hunter') == 'Hunter Temporário' ? 'selected' : ''}} value="Hunter Temporário">Hunter Temporário</option>
                                     </select>
-                                    @error('tipo_hunter')
-                                        <div class="alert alert-danger" role="alert"> 
-                                            {{$message}}
-                                        </div>    
-                                    @enderror
                                 </div> 
                             </div>
                             <br>
@@ -106,11 +92,6 @@
                                         <option {{ old('tipo_nen') == 'Materialização' ? 'selected' : ''}} value="Materialização">Materialização</option>
                                         <option {{ old('tipo_nen') == 'Especialização' ? 'selected' : ''}} value="Especialização">Especialização</option>
                                     </select>
-                                    @error('tipo_nen')
-                                        <div class="alert alert-danger" role="alert"> 
-                                            {{$message}}
-                                        </div>    
-                                    @enderror
                                 </div>
                             </div>
                             <br>
@@ -127,11 +108,6 @@
                                         <option {{ old('tipo_sangue') == 'O+' ? 'selected' : ''}} value="O+">O+</option>
                                         <option {{ old('tipo_sangue') == 'O-' ? 'selected' : ''}} value="O-">O-</option>
                                     </select>
-                                    @error('tipo_sangue')
-                                        <div class="alert alert-danger" role="alert"> 
-                                            {{$message}}
-                                        </div>    
-                                    @enderror
                                 </div>
                             </div>
                             <br>

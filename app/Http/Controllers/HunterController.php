@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
+use App\Http\Requests\HunterRequest;
 use App\Models\HunterModel;
 
 class HunterController extends Controller
@@ -33,34 +35,9 @@ class HunterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(HunterRequest $request)
     {
-        $validacoes = $request->validate(
-        [
-            'nome_hunter' => 'required|max:50',
-            'idade_hunter' => 'required|numeric',
-            'altura_hunter' => 'required|numeric',
-            'peso_hunter' => 'required|numeric',
-            'tipo_hunter' => 'required|max:30',
-            'tipo_nen' => 'required|max:30',
-            'tipo_sangue' => 'required|max:3',
-        ],
-        [
-            'nome_hunter.required' => 'É obrigatório definir o nome do Hunter.',
-            'nome_hunter.max' => 'O nome do Hunter deve possui no máximo 50 caracteres.',
-            'idade_hunter.required' => 'É obrigatório definir a idade do Hunter.',
-            'idade_hunter.numeric' => 'A idade do Hunter precisa ser um valor numérico.',
-            'altura_hunter.required' => 'É obrigatório definir a altura do Hunter.',
-            'altura_hunter.numeric' => 'A altura do Hunter precisa ser um valor numérico.',
-            'peso_hunter.required' => 'É obrigatório definir o peso do Hunter.',
-            'peso_hunter.numeric' => 'O peso do Hunter precisa ser um valor numérico.',
-            'tipo_hunter.required' => 'É obrigatório definir o tipo de Hunter.',
-            'tipo_hunter.max' => 'O tipo do Hunter deve possui no máximo 30 caracteres.',
-            'tipo_nen.required' => 'É obrigatório definir o tipo de Nen do Hunter.',
-            'tipo_nen.max' => 'O tipo de Nen do Hunter deve possui no máximo 30 caracteres.',
-            'tipo_sangue.required' => 'É obrigatório definir o tipo sanguíneo do Hunter.',
-            'tipo_sangue.max' => 'O tipo sanguíneo do Hunter deve possui no máximo 3 caracteres.',
-        ]);
+        $validacoes = $request->validated();
         HunterModel::create($validacoes);
         return redirect()->to('/');   
     }
@@ -96,34 +73,9 @@ class HunterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(HunterRequest $request, $id)
     {
-        $validacoes = $request->validate(
-        [
-            'nome_hunter' => 'required|max:50',
-            'idade_hunter' => 'required|numeric',
-            'altura_hunter' => 'required|numeric',
-            'peso_hunter' => 'required|numeric',
-            'tipo_hunter' => 'required|max:30',
-            'tipo_nen' => 'required|max:30',
-            'tipo_sangue' => 'required|max:3',
-        ],
-        [
-            'nome_hunter.required' => 'É obrigatório definir o nome do Hunter.',
-            'nome_hunter.max' => 'O nome do Hunter deve possui no máximo 50 caracteres.',
-            'idade_hunter.required' => 'É obrigatório definir a idade do Hunter.',
-            'idade_hunter.numeric' => 'A idade do Hunter precisa ser um valor numérico.',
-            'altura_hunter.required' => 'É obrigatório definir a altura do Hunter.',
-            'altura_hunter.numeric' => 'A altura do Hunter precisa ser um valor numérico.',
-            'peso_hunter.required' => 'É obrigatório definir o peso do Hunter.',
-            'peso_hunter.numeric' => 'O peso do Hunter precisa ser um valor numérico.',
-            'tipo_hunter.required' => 'É obrigatório definir o tipo de Hunter.',
-            'tipo_hunter.max' => 'O tipo do Hunter deve possui no máximo 30 caracteres.',
-            'tipo_nen.required' => 'É obrigatório definir o tipo de Nen do Hunter.',
-            'tipo_nen.max' => 'O tipo de Nen do Hunter deve possui no máximo 30 caracteres.',
-            'tipo_sangue.required' => 'É obrigatório definir o tipo sanguíneo do Hunter.',
-            'tipo_sangue.max' => 'O tipo sanguíneo do Hunter deve possui no máximo 3 caracteres.',
-        ]);
+        $validacoes = $request->validated();
         HunterModel::where('id',$id)->update($validacoes);
         return redirect()->to('/');        
     }
