@@ -1,5 +1,5 @@
 ### Sobre o projeto <h3> 
-O sistema em questão trata-se de um CRUD (Create, Read, Update e Delete) de hunters do anime Hunter x Hunter.
+O sistema em questão trata-se de um CRUD (Create, Read, Update e Delete) de Hunters do anime Hunter x Hunter.
   
 ### Ferramentas utilizadas <h3>
 * [AstahUML](https://astah.net/downloads/): Software de modelagem que permite uma fácil visualização dos componentes do sistema e sua interações através de diagramas. 
@@ -14,10 +14,12 @@ O sistema em questão trata-se de um CRUD (Create, Read, Update e Delete) de hun
 ### Funcionalidades do sistema <h3>
 Funcionalidade | Status
 ------------ | -------------
-Cadastrar hunter | Funcionando
-Listagem de hunters cadastrados | Funcionando
-Atualizar determinado hunter | Funcionando
-Excluir determinado hunter | Funcionando
+Cadastrar Hunter | Funcionando
+Listagem de Hunters cadastrados | Funcionando
+Atualizar determinado Hunter | Funcionando
+Excluir determinado Hunter | Funcionando
+Validações de formulário | Funcionando
+Alerta de ações | Funcionando
     
 <h1 align="center"> Listagem de hunters </h1>
 
