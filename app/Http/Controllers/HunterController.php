@@ -39,7 +39,7 @@ class HunterController extends Controller
     {
         $validacoes = $request->validated();
         HunterModel::create($validacoes);
-        return redirect()->to('/');   
+        return redirect()->to('/')->with('success_store','Hunter está presente no sistema.');   
     }
 
     /**
@@ -77,7 +77,7 @@ class HunterController extends Controller
     {
         $validacoes = $request->validated();
         HunterModel::where('id',$id)->update($validacoes);
-        return redirect()->to('/');        
+        return redirect()->to('/')->with('success_update','Hunter atualizado no sistema.');        
     }
 
     /**
@@ -89,6 +89,6 @@ class HunterController extends Controller
     public function destroy($id)
     {
         HunterModel::where('id',$id)->delete();
-        return redirect()->to('/');      
+        return redirect()->to('/')->with('success_destroy','Hunter excluído(a) do sistema.');       
     }
 }

@@ -1,6 +1,21 @@
 @extends('templates.template_index')
 @section('title', 'Listar Hunters')
 @section('content')
+    <!-- Alert status -->
+    @if ($message = Session::get('success_store'))
+        <div class="alert alert-success" role="alert">
+            <p>{{ $message }} </p>
+        </div>
+    @elseif ($message = Session::get('success_update'))
+        <div class="alert alert-primary" role="alert">
+            <p>{{ $message }} </p>
+        </div>
+    @elseif ($message = Session::get('success_destroy'))
+        <div class="alert alert-danger" role="alert">
+            <p>{{ $message }} </p>
+        </div>
+    @endif
+    <!-- Form -->
     <div class="contained">
         <div class="row">
             <div class="col-md-12 mt-2">
