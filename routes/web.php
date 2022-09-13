@@ -5,6 +5,7 @@ namespace App\Http\Controller\MasterController;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HunterController;
+use App\Http\Controllers\MasterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,7 @@ Route::controller(HunterController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/create', 'create');
     Route::get('/update/{id}', 'edit');
-    Route::post('create', 'store');
+    Route::post('/create', 'store');
     Route::patch('/update/{id}', 'update');
-    Route::delete('/delete/{id}', 'destroy'); 
+    Route::delete('/delete/{id}', 'destroy');
 });
