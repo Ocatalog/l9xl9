@@ -1,4 +1,4 @@
-@extends('templates.template_index')
+@extends('templates.template_hunter')
 @section('title', 'Listar Hunters')
 @section('content')
     <!-- Alert status -->

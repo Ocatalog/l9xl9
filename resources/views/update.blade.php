@@ -1,4 +1,4 @@
-@extends('templates.template_update')
+@extends('templates.template_hunter')
 @section('title', "Atualizar $hunter->nome_hunter")
 @section('content')
     <div class="contained">

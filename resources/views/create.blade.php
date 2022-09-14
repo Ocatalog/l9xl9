@@ -1,4 +1,4 @@
-@extends('templates.template_create')
+@extends('templates.template_hunter')
 @section('title', 'Cadastrar Hunter')
 @section('content')
     <div class="contained">
