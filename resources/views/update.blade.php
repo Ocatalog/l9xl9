@@ -117,13 +117,39 @@
                                 </div>
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-primary" title="Atualizar"><i class="fa fa-edit"></i>&nbsp;Atualizar</button>
+                            <button type="button" id="myButton" class="btn btn-primary" title="Atualizar" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i>&nbsp;Atualizar</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-    </div> 
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Atualizar Hunter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Deseja atualizar as informações de <b>{{$hunter->nome_hunter}}</b>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-xmark"></i>&nbsp;Cancelar</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i>&nbsp;Atualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Script Modal -->
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myButton').trigger('focus')
+        })
+    </script> 
     <!-- Footer -->
     <footer class="container">
         <div class="row">

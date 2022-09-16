@@ -111,13 +111,39 @@
                                 </div>
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-success" title="Cadastrar"><i class="fa fa-plus"></i>&nbsp;Cadastrar</button>
+                            <button type="button" id="myButton" class="btn btn-success" title="Cadastrar" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i>&nbsp;Cadastrar</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cadastrar Hunter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Deseja cadastrar um novo Hunter?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-xmark"></i>&nbsp;Cancelar</button>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Script Modal -->
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myButton').trigger('focus')
+        })
+    </script>
     <!-- Footer -->
     <footer class="container">
         <div class="row">
