@@ -19,17 +19,16 @@ Listagem de Hunters cadastrados | Funcionando
 Atualizar determinado Hunter | Funcionando
 Excluir determinado Hunter | Funcionando
 Validações de formulário | Funcionando
-Modal de ações | Em andamento
 Alertas de ações feitas | Funcionando
 
-<h1 align="center"> Listagem de hunters </h1>
+<h1 align="center"> Listagem de Hunters </h1>
 
 ![](https://github.com/Iury189/l9xl9/blob/main/public/imagens/Listagem.png?raw=true)
   
-<h1 align="center"> Cadastro de hunter </h1>
+<h1 align="center"> Cadastro de Hunter </h1>
 
 ![](https://github.com/Iury189/l9xl9/blob/main/public/imagens/Cadastro.png?raw=true)
  
-<h1 align="center"> Atualização de hunter </h1>
+<h1 align="center"> Atualização de Hunter </h1>
 
 ![](https://github.com/Iury189/l9xl9/blob/main/public/imagens/Atualizacao.png?raw=true)
