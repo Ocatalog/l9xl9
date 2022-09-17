@@ -19,8 +19,9 @@ Listagem de Hunters cadastrados | Funcionando
 Atualizar determinado Hunter | Funcionando
 Excluir determinado Hunter | Funcionando
 Validações de formulário | Funcionando
-Alerta de ações | Funcionando
-    
+Modal de ações | Em andamento
+Alertas de ações feitas | Funcionando
+
 <h1 align="center"> Listagem de hunters </h1>
 
 ![](https://github.com/Iury189/l9xl9/blob/main/public/imagens/Listagem.png?raw=true)

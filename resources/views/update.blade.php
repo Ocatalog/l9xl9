@@ -28,7 +28,7 @@
                         {{ method_field('PATCH') }} {{ csrf_field() }}
                         <div class="form_group">
                             <div class="form_group">
-                                <div for="nome_hunter">
+                                <div for="nome_hunter">ID:
                                     <input type="number" class="form-control" name="id" value="{{ $hunter->id }}" readonly>
                                 </div>
                             </div>
