@@ -6,7 +6,7 @@
             <div class="col-md-12 mt-2">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Atualizar hunter
+                        <h4>Atualizar Hunter
                             <a href=" {{ url("/") }} " class="btn btn-secondary float-end" title="Retornar listagem"><i class="fa fa-arrow-left"></i>&nbsp;Retornar listagem</a>
                         </h4>
                     </div>
@@ -27,12 +27,6 @@
                     <form action="{{ url("update/$hunter->id") }}" method="POST">
                         {{ method_field('PATCH') }} {{ csrf_field() }}
                         <div class="form_group">
-                            <div class="form_group">
-                                <div for="nome_hunter">ID:
-                                    <input type="number" class="form-control" name="id" value="{{ $hunter->id }}" readonly>
-                                </div>
-                            </div>
-                            <br>
                             <div class="form_group">
                                 <div for="nome_hunter">Nome:
                                     <input type="text" class="form-control" name="nome_hunter" placeholder="Digite o nome do Hunter" maxlength="50" value="{{ $hunter->nome_hunter }}">
