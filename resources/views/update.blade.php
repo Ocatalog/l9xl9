@@ -111,7 +111,7 @@
                                 </div>
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-primary" title="Atualizar"><i class="fa fa-edit"></i>&nbsp;Atualizar</button>
+                            <button type="submit" class="btn btn-primary" title="Atualizar"><i class="fa fa-arrows-rotate"></i>&nbsp;Atualizar</button>
                         </div>
                     </div>
                 </form>

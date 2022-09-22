@@ -2,17 +2,17 @@
 @section('title', 'Listar Hunters')
 @section('content')
     <!-- Alert status -->
-    @if ($message = Session::get('success_store'))
+    @if ($mensagem = Session::get('success_store'))
         <div class="alert alert-success" role="alert">
-            <p>{{ $message }} </p>
+            <p>{{ $mensagem }} </p>
         </div>
-    @elseif ($message = Session::get('success_update'))
+    @elseif ($mensagem = Session::get('success_update'))
         <div class="alert alert-primary" role="alert">
-            <p>{{ $message }} </p>
+            <p>{{ $mensagem }}</p>
         </div>
-    @elseif ($message = Session::get('success_destroy'))
+    @elseif ($mensagem = Session::get('success_destroy'))
         <div class="alert alert-danger" role="alert">
-            <p>{{ $message }} </p>
+            <p>{{ $mensagem }}</p>
         </div>
     @endif
     <!-- Form -->
@@ -59,7 +59,7 @@
                                     {{ $hxh->data_atualizacao == $hxh->data_cadastro ? 'Sem atualização' : \Carbon\Carbon::parse($hxh->data_atualizacao)->format('d/m/Y H:i:s')}}</td>
                                     <td>        
                                         <form action="{{ url("delete/$hxh->id") }}" method="POST">
-                                            <a href="{{ url("update/$hxh->id") }}" class="btn btn-primary" title="Atualizar {{ $hxh->nome_hunter }}"><i class="fa fa-edit"></i>&nbsp;Atualizar</a>
+                                            <a href="{{ url("update/$hxh->id") }}" class="btn btn-primary" title="Atualizar {{ $hxh->nome_hunter }}"><i class="fa fa-arrows-rotate"></i>&nbsp;Atualizar</a>
                                             {{ ' ' }} {{ method_field('DELETE') }} {{ csrf_field() }}
                                             <button type="submit" class="btn btn-danger" title="Deletar {{ $hxh->nome_hunter }}"><i class="fa fa-trash"></i>&nbsp;Deletar</button>
                                         </form>
