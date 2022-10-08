@@ -1,8 +1,5 @@
 <?php
 
-namespace App\Http\Controller\HunterController;
-namespace App\Http\Controller\MasterController;
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HunterController;
 use App\Http\Controllers\MasterController;
@@ -18,9 +15,9 @@ use App\Http\Controllers\MasterController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::controller(HunterController::class)->group(function () {
     Route::get('/', 'index');

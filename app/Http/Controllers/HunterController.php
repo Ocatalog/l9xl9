@@ -50,8 +50,7 @@ class HunterController extends Controller
      */
     public function show($id)
     {
-        $hunter = HunterModel::find($id);
-        return view('update', compact('hunter'));
+        //
     }
 
     /**
