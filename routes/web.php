@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HunterController;
-use App\Http\Controllers\MasterController;
 
 /*
 |--------------------------------------------------------------------------

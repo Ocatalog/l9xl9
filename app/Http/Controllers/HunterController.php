@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\HunterRequest;
 use App\Models\HunterModel;
-
 class HunterController extends Controller
 {
     /**
