@@ -4,7 +4,7 @@
     <!-- Alert status -->
     @if ($mensagem = Session::get('success_store'))
         <div class="alert alert-success" role="alert">
-            <p>{{ $mensagem }} </p>
+            <p>{{ $mensagem }}</p>
         </div>
     @elseif ($mensagem = Session::get('success_update'))
         <div class="alert alert-primary" role="alert">
