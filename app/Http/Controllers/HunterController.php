@@ -15,7 +15,7 @@ class HunterController extends Controller
      */
     public function index()
     {
-        $hunter = HunterModel::paginate(5);
+        $hunter = HunterModel::paginate(3);
         return view('index', compact('hunter'));
     }
 
