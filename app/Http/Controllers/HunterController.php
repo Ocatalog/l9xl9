@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HunterModel;
 use Illuminate\Http\Request;
 use App\Http\Requests\HunterRequest;
-use App\Models\HunterModel;
+
 
 class HunterController extends Controller
 {
@@ -15,7 +16,7 @@ class HunterController extends Controller
      */
     public function index()
     {
-        $hunter = HunterModel::paginate(3);
+        $hunter = HunterModel::paginate(5);
         return view('index', compact('hunter'));
     }
 
@@ -38,6 +39,7 @@ class HunterController extends Controller
     public function store(HunterRequest $request)
     {
         $validacoes = $request->validated();
+        $validacoes['propriedades'] = $validacoes;
         HunterModel::create($validacoes);
         return redirect('/')->with('success_store','Hunter está presente no sistema.');   
     }
@@ -75,7 +77,8 @@ class HunterController extends Controller
     public function update(HunterRequest $request, $id)
     {
         $validacoes = $request->validated();
-        HunterModel::where('id',$id)->update($validacoes);
+        $validacoes['propriedades'] = $validacoes;
+        HunterModel::where('id', $id)->update($validacoes);
         return redirect('/')->with('success_update','Hunter atualizado no sistema.');        
     }
 
@@ -87,7 +90,8 @@ class HunterController extends Controller
      */
     public function destroy($id)
     {
-        HunterModel::where('id',$id)->delete();
+        HunterModel::where('id', $id)->delete();
         return redirect('/')->with('success_destroy','Hunter excluído(a) do sistema.');       
     }
+    
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class HunterModel extends Model
 {
     use HasFactory;
-    protected $table = "hunter";
+    protected $table = "hunters";
     protected $primaryKey = 'id';
     const CREATED_AT = 'data_cadastro';
     const UPDATED_AT = 'data_atualizacao';
@@ -19,6 +19,10 @@ class HunterModel extends Model
         'peso_hunter',
         'tipo_hunter',
         'tipo_nen',
-        'tipo_sangue'
+        'tipo_sangue',
+        'propriedades'
+    ];
+    protected $casts = [
+        'propriedades' => 'array'
     ];
 }

@@ -20,6 +20,7 @@ use App\Http\Controllers\HunterController;
 
 Route::controller(HunterController::class)->group(function () {
     Route::get('/', 'index');
+    Route::get('/zip', 'download');
     Route::get('/create', 'create');
     Route::get('/update/{id}', 'edit');
     Route::post('/create', 'store');
