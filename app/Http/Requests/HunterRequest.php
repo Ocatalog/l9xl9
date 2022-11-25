@@ -31,12 +31,12 @@ class HunterRequest extends FormRequest
             'idade_hunter' => 'required|integer|min:13',
             'altura_hunter' => 'required|numeric|min:1.50|max:2.50',
             'peso_hunter' => 'required|numeric|min:50.00|max:150.00',
-            'tipo_hunter' => ['required|max:50', Rule::in(['Hunter Gourmet','Hunter Arqueólogo','Hunter Cientista ou Hunter Técnico',
+            'tipo_hunter' => ['required','max:50', Rule::in(['Hunter Gourmet','Hunter Arqueólogo','Hunter Cientista ou Hunter Técnico',
             'Hunter Selvagem ou Hunter Ambientalista','Hunter Musical','Hunter Treasure','Hunter Lista Negra','Hunter Mercenário',
             'Hunter Medicinal','Hunter Hacker','Hunter Cabeça','Hunter de Informação','Hunter Jackspot','Hunter Vírus','Hunter da Juventudade e Beleza',
             'Hunter Terrorista','Hunter de Venenos','Hunter Caçador','Hunter Paleógrafo','Hunter Perdido','Hunter Provisório','Hunter Temporário'])],
-            'tipo_nen' => ['required|max:30', Rule::in(['Reforço','Emissão','Transformação','Manipulação','Materialização','Especialização'])],
-            'tipo_sangue' => ['required|max:3', Rule::in(['A+','A-','B+','B-','AB+','AB-','O+','O-'])],
+            'tipo_nen' => ['required','max:30', Rule::in(['Reforço','Emissão','Transformação','Manipulação','Materialização','Especialização'])],
+            'tipo_sangue' => ['required','max:3', Rule::in(['A+','A-','B+','B-','AB+','AB-','O+','O-'])],
         ];
     }
     // Customizing messages rules
@@ -61,7 +61,7 @@ class HunterRequest extends FormRequest
             'tipo_hunter.in' => 'Tipo de Hunter desconhecido.',
             'tipo_nen.required' => 'É obrigatório definir o tipo de Nen do Hunter.',
             'tipo_nen.max' => 'O tipo de Nen do Hunter deve conter no máximo 50 caracteres.',
-            'tipo_sangue.in' => 'Tipo de Nen desconhecido.',
+            'tipo_nen.in' => 'Tipo de Nen desconhecido.',
             'tipo_sangue.required' => 'É obrigatório definir o tipo sanguíneo do Hunter.',
             'tipo_sangue.max' => 'O tipo sanguíneo do Hunter deve conter no máximo 3 caracteres.',
             'tipo_sangue.in' => 'Tipo sanguíneo desconhecido.',
