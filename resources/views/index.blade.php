@@ -40,7 +40,7 @@
                                 <th title="Tipo sanguíneo">Tipo sanguíneo</th>
                                 <th title="Data de cadastro">Data de cadastro</th>
                                 <th title="Data de atualização">Data de atualização</th>
-                                <th title="Ação(ões)">Ação(ões)</th>        
+                                <th title="Ação(ões)">Ação(ões)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,9 +57,9 @@
                                     <td title="{{ \Carbon\Carbon::parse($hxh->data_cadastro)->format('d/m/Y H:i:s')}}">{{ \Carbon\Carbon::parse($hxh->data_cadastro)->format('d/m/Y H:i:s')}}</td>
                                     <td title="{{ $hxh->data_atualizacao == $hxh->data_cadastro ? 'Sem atualização' : \Carbon\Carbon::parse($hxh->data_atualizacao)->format('d/m/Y H:i:s')}}">
                                     {{ $hxh->data_atualizacao == $hxh->data_cadastro ? 'Sem atualização' : \Carbon\Carbon::parse($hxh->data_atualizacao)->format('d/m/Y H:i:s')}}</td>
-                                    <td>        
-                                        <form action="{{ url("delete/$hxh->id") }}" method="POST">
-                                            <a href="{{ url("update/$hxh->id") }}" class="btn btn-primary" title="Atualizar {{ $hxh->nome_hunter }}"><i class="fa fa-arrows-rotate"></i>&nbsp;Atualizar</a>
+                                    <td>
+                                        <form action="{{ url("delete/".encrypt($hxh->id)) }}" method="POST">
+                                            <a href="{{ url("update/".encrypt($hxh->id)) }}" class="btn btn-primary" title="Atualizar {{ $hxh->nome_hunter }}"><i class="fa fa-arrows-rotate"></i>&nbsp;Atualizar</a>
                                             {{ ' ' }} {{ method_field('DELETE') }} {{ csrf_field() }}
                                             <button type="submit" class="btn btn-danger" title="Deletar {{ $hxh->nome_hunter }}"><i class="fa fa-trash"></i>&nbsp;Deletar</button>
                                         </form>
@@ -71,14 +71,6 @@
                     {{ $hunter->links() }}
                 </div>
             </div>
-        </div>    
-    </div>
-    <!-- Footer -->
-    <footer class="container">
-        <div class="row">
-            <div class="col text-center">
-                <em> Iury Fernandes, {{ date('Y') }}.</em>
-            </div>
         </div>
-    </footer>
+    </div>
 @endsection

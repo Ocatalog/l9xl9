@@ -24,7 +24,7 @@
                         </div>
                     @endif
                     <!-- Form -->
-                    <form action="{{ url("update/$hunter->id") }}" method="POST">
+                    <form action="{{ url("update/".encrypt($hunter->id)) }}" method="POST">
                         {{ method_field('PATCH') }} {{ csrf_field() }}
                         <div class="form_group">
                             <div class="form_group">
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                             <br>
-                            <div class="form_group"> 
+                            <div class="form_group">
                                 <div for="tipo_hunter">Tipo de Hunter:
                                     <select class="form-control" name="tipo_hunter">
                                         <option value="" {{ $hunter->tipo_hunter == '' ? 'selected' : ''}}>Defina o tipo de Hunter</option>
@@ -78,7 +78,7 @@
                                         <option value="Hunter Provisório" {{ $hunter->tipo_hunter == 'Hunter Provisório' ? 'selected' : ''}}>Hunter Provisório</option>
                                         <option value="Hunter Temporário" {{ $hunter->tipo_hunter == 'Hunter Temporário' ? 'selected' : ''}}>Hunter Temporário</option>
                                     </select>
-                                </div> 
+                                </div>
                             </div>
                             <br>
                             <div class="form_group">
@@ -118,12 +118,4 @@
             </div>
         </div>
     </div>
-    <!-- Footer -->
-    <footer class="container">
-        <div class="row">
-            <div class="col text-center">
-                <em> Iury Fernandes, {{ date('Y') }}.</em>
-            </div>
-        </div>
-    </footer>    
 @endsection

@@ -16,5 +16,14 @@
 
 @yield('content')
 
+<!-- Footer -->
+<footer class="container">
+    <div class="row">
+        <div class="col text-center">
+            <em> Iury Fernandes, {{ date('Y') }}.</em>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>

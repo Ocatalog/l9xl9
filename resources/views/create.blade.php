@@ -78,7 +78,7 @@
                                         <option {{ old('tipo_hunter') == 'Hunter Provisório' ? 'selected' : ''}} value="Hunter Provisório">Hunter Provisório</option>
                                         <option {{ old('tipo_hunter') == 'Hunter Temporário' ? 'selected' : ''}} value="Hunter Temporário">Hunter Temporário</option>
                                     </select>
-                                </div> 
+                                </div>
                             </div>
                             <br>
                             <div class="form_group">
@@ -118,12 +118,4 @@
             </div>
         </div>
     </div>
-    <!-- Footer -->
-    <footer class="container">
-        <div class="row">
-            <div class="col text-center">
-                <em> Iury Fernandes, {{ date('Y') }}.</em>
-            </div>
-        </div>
-    </footer>   
 @endsection
