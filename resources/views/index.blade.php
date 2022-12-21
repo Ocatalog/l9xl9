@@ -20,14 +20,21 @@
         <div class="row">
             <div class="col-md-12 mt-2">
                 <div class="card">
+                    <nav class="navbar bg-light">
+                        <div class="container-fluid">
+                          <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Pesquisar Hunter" id="name_hunter" aria-label="Search">
+                          </form>
+                        </div>
+                    </nav>
                     <div class="card-header">
                         <h4>Listar Hunters
-                        <a href="{{ url("create") }}" class="btn btn-success float-end" title="Cadastrar"><i class="fa fa-plus"></i>&nbsp;Cadastrar</a>
+                            <a href="{{ url("create") }}" class="btn btn-success float-end" title="Cadastrar"><i class="fa fa-plus"></i>&nbsp;Cadastrar</a>
                         </h4>
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table" id="search_hunter">
                         <thead>
                             <tr>
                                 <th title="ID">ID</th>
@@ -73,4 +80,6 @@
             </div>
         </div>
     </div>
+    <!-- Filter field -->
+    <script type="text/javascript" src="{{ asset('js/search.js') }}"></script>
 @endsection

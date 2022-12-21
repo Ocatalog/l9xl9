@@ -19,6 +19,7 @@ Listagem de Hunters cadastrados | Funcionando
 Atualizar determinado Hunter | Funcionando
 Excluir determinado Hunter | Funcionando
 Validações de formulário | Funcionando
+Filtragem de Hunter(s) | Funcionando
 Alertas de ações feitas | Funcionando
 
 <h1 align="center"> Listagem de Hunters </h1>

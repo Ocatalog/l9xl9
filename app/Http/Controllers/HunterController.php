@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\HunterModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HunterRequest;
 use Illuminate\Support\Facades\Crypt;
@@ -42,7 +43,7 @@ class HunterController extends Controller
         $validacoes = $request->validated();
         $validacoes['propriedades'] = $validacoes;
         HunterModel::create($validacoes);
-        return redirect('/')->with('success_store','Hunter está presente no sistema.');
+        return redirect('/')->with('success_store',"{$validacoes['nome_hunter']} está presente no sistema.");
     }
 
     /**
@@ -80,7 +81,7 @@ class HunterController extends Controller
         $validacoes = $request->validated();
         $validacoes['propriedades'] = $validacoes;
         HunterModel::where('id', Crypt::decrypt($id))->update($validacoes);
-        return redirect('/')->with('success_update','Hunter obteve atualização em suas informações.');
+        return redirect('/')->with('success_update',"{$validacoes['nome_hunter']} obteve atualização em suas informações.");
     }
 
     /**
@@ -91,8 +92,9 @@ class HunterController extends Controller
      */
     public function destroy($id)
     {
+        $nome_hunter = DB::table('hunters')->where('id','=',Crypt::decrypt($id))->value('nome_hunter');
         HunterModel::where('id', Crypt::decrypt($id))->delete();
-        return redirect('/')->with('success_destroy','Hunter não está mais presente no sistema.');
+        return redirect('/')->with('success_destroy',"$nome_hunter não está mais presente no sistema.");
     }
 
 }
