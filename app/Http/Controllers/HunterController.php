@@ -92,17 +92,17 @@ class HunterController extends Controller
      */
     public function destroy($id)
     {
-        $nome_hunter = DB::table('hunters')->where('id','=',Crypt::decrypt($id))->value('nome_hunter');
+        $nome = DB::table('hunters')->where('id','=', Crypt::decrypt($id))->value('nome_hunter');
         HunterModel::where('id', Crypt::decrypt($id))->delete();
-        return redirect('/')->with('success_destroy',"$nome_hunter não está mais presente no sistema.");
+        return redirect('/')->with('success_destroy',"$nome não está mais presente no sistema.");
     }
 
     public function search(Request $request)
     {
         $search = $request->input('search');
-        if ($search)
+        if (!empty($search))
         {
-            $hunter = HunterModel::where('nome_hunter','LIKE',"%{$search}%")->where('nome_hunter','<>','')->get();
+            $hunter = HunterModel::where('nome_hunter','LIKE',"%{$search}%")->get();
             return view('search', compact('hunter'));
         } else {
             return redirect('/')->with('search_error',"Campo de pesquisa não aceita valores vazios ou nulos.");
