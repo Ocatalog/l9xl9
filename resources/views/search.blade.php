@@ -1,24 +1,6 @@
 @extends('templates.template_hunter')
 @section('title', 'Listar Hunters')
 @section('content')
-    <!-- Alert status -->
-    @if ($mensagem = Session::get('success_store'))
-        <div class="alert alert-success" role="alert">
-            <p>{{ $mensagem }}</p>
-        </div>
-    @elseif ($mensagem = Session::get('success_update'))
-        <div class="alert alert-primary" role="alert">
-            <p>{{ $mensagem }}</p>
-        </div>
-    @elseif ($mensagem = Session::get('success_destroy'))
-        <div class="alert alert-danger" role="alert">
-            <p>{{ $mensagem }}</p>
-        </div>
-        @elseif ($mensagem = Session::get('search_error'))
-        <div class="alert alert-warning" role="alert">
-            <p>{{ $mensagem }}</p>
-        </div>
-    @endif
     <!-- Form -->
     <div class="contained">
         <div class="row">
@@ -80,7 +62,6 @@
 	                        @endforeach
                         </tbody>
                     </table>
-                    {{ $hunter->links() }}
                 </div>
             </div>
         </div>
