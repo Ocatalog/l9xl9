@@ -22,6 +22,7 @@ Route::controller(HunterController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/create', 'create');
     Route::get('/search', 'search');
+    Route::get('/export_pdf','exportPDF');
     Route::get('/update/{id}', 'edit');
     Route::post('/create', 'store');
     Route::patch('/update/{id}', 'update');

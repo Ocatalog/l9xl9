@@ -1,48 +1,10 @@
 @extends('templates.template_hunter')
-@section('title', 'Listar Hunters')
+@section('title', 'Export hunters data to pdf file')
 @section('content')
-    <!-- Alert status -->
-    @if ($mensagem = Session::get('success_store'))
-        <div class="alert alert-success" role="alert">
-            <p>{{ $mensagem }}</p>
-        </div>
-    @elseif ($mensagem = Session::get('success_update'))
-        <div class="alert alert-primary" role="alert">
-            <p>{{ $mensagem }}</p>
-        </div>
-    @elseif ($mensagem = Session::get('success_destroy'))
-        <div class="alert alert-danger" role="alert">
-            <p>{{ $mensagem }}</p>
-        </div>
-    @elseif ($mensagem = Session::get('search_error'))
-        <div class="alert alert-warning" role="alert">
-            <p>{{ $mensagem }}</p>
-        </div>
-    @elseif ($mensagem = Session::get('export_pdf_error'))
-        <div class="alert alert-warning" role="alert">
-            <p>{{ $mensagem }}</p>
-        </div>
-    @endif
     <!-- Form -->
     <div class="contained">
         <div class="row">
             <div class="col-md-12 mt-2">
-                <div class="card">
-                    <nav class="navbar bg-light">
-                        <div class="container-fluid">
-                          <form class="d-flex" role="search" method="GET" action="{{ url("search")}}">
-                            <input class="form-control me-2" type="search" name="search" aria-label="Search">
-                            <button class="btn btn-outline-dark" type="submit">Pesquisar</button>
-                          </form>
-                        </div>
-                      </nav>
-                    <div class="card-header">
-                        <h4>Listar Hunters
-                            <a href="{{ url("create") }}" class="btn btn-success float-end" title="Cadastrar"><i class="fa fa-plus"></i>&nbsp;Cadastrar</a>
-                            <a href="{{ url("export_pdf") }}" class="btn btn-dark float-center" title="Cadastrar"><i class="fa fa-file-pdf"></i>&nbsp;Exportar PDF</a>
-                        </h4>
-                    </div>
-                </div>
                 <div class="card-body">
                     <table class="table" id="search_hunter">
                         <thead>
@@ -57,7 +19,6 @@
                                 <th title="Tipo sanguíneo">Tipo sanguíneo</th>
                                 <th title="Data de cadastro">Data de cadastro</th>
                                 <th title="Data de atualização">Data de atualização</th>
-                                <th title="Ação(ões)">Ação(ões)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,18 +35,10 @@
                                     <td title="{{ \Carbon\Carbon::parse($hxh->data_cadastro)->format('d/m/Y H:i:s')}}">{{ \Carbon\Carbon::parse($hxh->data_cadastro)->format('d/m/Y H:i:s')}}</td>
                                     <td title="{{ $hxh->data_atualizacao == $hxh->data_cadastro ? 'Sem atualização' : \Carbon\Carbon::parse($hxh->data_atualizacao)->format('d/m/Y H:i:s')}}">
                                     {{ $hxh->data_atualizacao == $hxh->data_cadastro ? 'Sem atualização' : \Carbon\Carbon::parse($hxh->data_atualizacao)->format('d/m/Y H:i:s')}}</td>
-                                    <td>
-                                        <form action="{{ url("delete/".encrypt($hxh->id)) }}" method="POST">
-                                            <a href="{{ url("update/".encrypt($hxh->id)) }}" class="btn btn-primary" title="Atualizar {{ $hxh->nome_hunter }}"><i class="fa fa-arrows-rotate"></i>&nbsp;Atualizar</a>
-                                            {{ ' ' }} {{ method_field('DELETE') }} {{ csrf_field() }}
-                                            <button type="submit" class="btn btn-danger" title="Deletar {{ $hxh->nome_hunter }}"><i class="fa fa-trash"></i>&nbsp;Deletar</button>
-                                        </form>
-                                    </td>
                                 </tr>
 	                        @endforeach
                         </tbody>
                     </table>
-                    {{ $hunter->links() }}
                 </div>
             </div>
         </div>

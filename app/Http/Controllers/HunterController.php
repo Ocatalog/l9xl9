@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HunterRequest;
 use Illuminate\Support\Facades\Crypt;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Str;
 
 class HunterController extends Controller
 {
@@ -109,4 +111,14 @@ class HunterController extends Controller
         }
     }
 
+    public function exportPDF()
+    {
+        $hunter = HunterModel::all();
+        if ($hunter->isNotEmpty()){
+            $pdf = PDF::loadView('table_export', compact('hunter'));
+            return $pdf->download(Str::random(10).'.pdf');
+        } else {
+            return redirect('/')->with('export_pdf_error',"É necessário haver registros para exportar em arquivo PDF.");
+        }
+    }
 }
