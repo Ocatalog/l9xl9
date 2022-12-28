@@ -106,8 +106,8 @@ class HunterController extends Controller
         $hunter = HunterModel::find(Crypt::decrypt($id));
         $nome = DB::table('hunters')->where('id','=', Crypt::decrypt($id))->value('nome_hunter');
         HunterModel::where('id', Crypt::decrypt($id))->delete();
-        if(Storage::delete($hunter->imagem_hunter)) {
-            $hunter->delete();
+        if(Storage::exists($hunter->imagem_hunter)) {
+            Storage::delete($hunter->imagem_hunter);
          }
         return redirect('/')->with('success_destroy',"$nome não está mais presente no sistema.");
     }
