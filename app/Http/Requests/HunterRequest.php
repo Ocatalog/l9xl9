@@ -25,7 +25,7 @@ class HunterRequest extends FormRequest
      */
     public function rules()
     {
-        return 
+        return
         [
             'nome_hunter' => 'required|max:50',
             'idade_hunter' => 'required|integer|min:13',
@@ -37,6 +37,7 @@ class HunterRequest extends FormRequest
             'Hunter Terrorista','Hunter de Venenos','Hunter Caçador','Hunter Paleógrafo','Hunter Perdido','Hunter Provisório','Hunter Temporário'])],
             'tipo_nen' => ['required','max:30', Rule::in(['Reforço','Emissão','Transformação','Manipulação','Materialização','Especialização'])],
             'tipo_sangue' => ['required','max:3', Rule::in(['A+','A-','B+','B-','AB+','AB-','O+','O-'])],
+            'imagem_hunter' => 'required|max:1024'
         ];
     }
     // Customizing messages rules
@@ -65,6 +66,8 @@ class HunterRequest extends FormRequest
             'tipo_sangue.required' => 'É obrigatório definir o tipo sanguíneo do Hunter.',
             'tipo_sangue.max' => 'O tipo sanguíneo do Hunter deve conter no máximo 3 caracteres.',
             'tipo_sangue.in' => 'Tipo sanguíneo desconhecido.',
+            'imagem_hunter.required' => 'É obrigatório inserir a imagem do Hunter.',
+            'imagem_hunter.size' => 'A imagem do Hunter deve ocupar no máximo 1024KB (1MB) de espaço.',
         ];
     }
 }

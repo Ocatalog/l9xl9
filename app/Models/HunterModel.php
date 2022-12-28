@@ -20,6 +20,7 @@ class HunterModel extends Model
         'tipo_hunter',
         'tipo_nen',
         'tipo_sangue',
+        'imagem_hunter',
         'propriedades'
     ];
     protected $casts = [

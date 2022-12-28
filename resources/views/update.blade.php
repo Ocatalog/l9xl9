@@ -24,7 +24,7 @@
                         </div>
                     @endif
                     <!-- Form -->
-                    <form action="{{ url("update/".encrypt($hunter->id)) }}" method="POST">
+                    <form action="{{ url("update/".encrypt($hunter->id)) }}" method="POST" enctype="multipart/form-data">
                         {{ method_field('PATCH') }} {{ csrf_field() }}
                         <div class="form_group">
                             <div class="form_group">
@@ -108,6 +108,13 @@
                                         <option value="O+" {{ $hunter->tipo_sangue == 'O+' ? 'selected' : ''}}>O+</option>
                                         <option value="O-" {{ $hunter->tipo_sangue == 'O-' ? 'selected' : ''}}>O-</option>
                                     </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form_group">
+                                <div for="imagem_hunter">Imagem:
+                                    <input type="file" class="form-control" name="imagem_hunter">
+                                    <img src="{{ storage_path("app/".$hunter->imagem_hunter) }}" height=100 width=100>
                                 </div>
                             </div>
                             <br>

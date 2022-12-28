@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\HunterModel;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HunterRequest;
 use Illuminate\Support\Facades\Crypt;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class HunterController extends Controller
 {
@@ -44,6 +45,8 @@ class HunterController extends Controller
     {
         $validacoes = $request->validated();
         $validacoes['propriedades'] = $validacoes;
+        $path = $request->file('imagem_hunter')->store('avatars');
+        $validacoes['imagem_hunter'] = $path;
         HunterModel::create($validacoes);
         return redirect('/')->with('success_store',"{$validacoes['nome_hunter']} está presente no sistema.");
     }
@@ -82,6 +85,12 @@ class HunterController extends Controller
     {
         $validacoes = $request->validated();
         $validacoes['propriedades'] = $validacoes;
+        $hunter = HunterModel::find(Crypt::decrypt($id));
+        if(Storage::exists($hunter->imagem_hunter)){
+            Storage::delete($hunter->imagem_hunter);
+            $path = $request->file('imagem_hunter')->store('avatars');
+            $validacoes['imagem_hunter'] = $path;
+        }
         HunterModel::where('id', Crypt::decrypt($id))->update($validacoes);
         return redirect('/')->with('success_update',"{$validacoes['nome_hunter']} obteve atualização em suas informações.");
     }
@@ -94,8 +103,12 @@ class HunterController extends Controller
      */
     public function destroy($id)
     {
+        $hunter = HunterModel::find(Crypt::decrypt($id));
         $nome = DB::table('hunters')->where('id','=', Crypt::decrypt($id))->value('nome_hunter');
         HunterModel::where('id', Crypt::decrypt($id))->delete();
+        if(Storage::delete($hunter->imagem_hunter)) {
+            $hunter->delete();
+         }
         return redirect('/')->with('success_destroy',"$nome não está mais presente no sistema.");
     }
 
@@ -121,4 +134,5 @@ class HunterController extends Controller
             return redirect('/')->with('export_pdf_error',"É necessário haver registros para exportar em arquivo PDF.");
         }
     }
+
 }

@@ -24,7 +24,7 @@
                         </div>
                     @endif
                     <!-- Form -->
-                    <form action="{{ url("create") }}" method="POST">
+                    <form action="{{ url("create") }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form_group">
                             <div class="form_group">
@@ -108,6 +108,12 @@
                                         <option {{ old('tipo_sangue') == 'O+' ? 'selected' : ''}} value="O+">O+</option>
                                         <option {{ old('tipo_sangue') == 'O-' ? 'selected' : ''}} value="O-">O-</option>
                                     </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form_group">
+                                <div for="imagem_hunter">Imagem:
+                                    <input type="file" class="form-control" name="imagem_hunter" value="{{ old('imagem_hunter') }}">
                                 </div>
                             </div>
                             <br>
