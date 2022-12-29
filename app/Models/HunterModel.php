@@ -21,6 +21,7 @@ class HunterModel extends Model
         'tipo_nen',
         'tipo_sangue',
         'imagem_hunter',
+        'serial',
         'propriedades'
     ];
     protected $casts = [

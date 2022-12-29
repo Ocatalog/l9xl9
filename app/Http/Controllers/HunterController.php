@@ -44,6 +44,8 @@ class HunterController extends Controller
     public function store(HunterRequest $request)
     {
         $validacoes = $request->validated();
+        $random_serial = Str::random(10);
+        $validacoes['serial'] = Str::upper($random_serial);
         $validacoes['propriedades'] = $validacoes;
         $path = $request->file('imagem_hunter')->store('avatars');
         if(!empty($path)){
@@ -112,7 +114,7 @@ class HunterController extends Controller
         $hunter = HunterModel::find(Crypt::decrypt($id));
         $nome = DB::table('hunters')->where('id','=', Crypt::decrypt($id))->value('nome_hunter');
         HunterModel::where('id', Crypt::decrypt($id))->delete();
-        if(Storage::exists($hunter->imagem_hunter)) {
+        if(Storage::exists($hunter->imagem_hunter)){
             Storage::delete($hunter->imagem_hunter);
         } else {
             dd("Não foi possível excluir a imagem de $nome do projeto, refaça a operação.");
@@ -123,8 +125,7 @@ class HunterController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('search');
-        if (!empty($search))
-        {
+        if (!empty($search)){
             $hunter = HunterModel::where('nome_hunter','LIKE',"%{$search}%")->get();
             return view('search', compact('hunter'));
         } else {
