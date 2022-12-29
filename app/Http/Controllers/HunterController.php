@@ -46,7 +46,11 @@ class HunterController extends Controller
         $validacoes = $request->validated();
         $validacoes['propriedades'] = $validacoes;
         $path = $request->file('imagem_hunter')->store('avatars');
-        $validacoes['imagem_hunter'] = $path;
+        if(!empty($path)){
+            $validacoes['imagem_hunter'] = $path;
+        } else {
+            dd("Não foi possível inserir a imagem de {$validacoes['nome_hunter']}, refaça a operação.");
+        }
         HunterModel::create($validacoes);
         return redirect('/')->with('success_store',"{$validacoes['nome_hunter']} está presente no sistema.");
     }
@@ -90,6 +94,8 @@ class HunterController extends Controller
             Storage::delete($hunter->imagem_hunter);
             $path = $request->file('imagem_hunter')->store('avatars');
             $validacoes['imagem_hunter'] = $path;
+        } else {
+            dd("Não foi possível atualizar a imagem de {$validacoes['nome_hunter']}, refaça a operação.");
         }
         HunterModel::where('id', Crypt::decrypt($id))->update($validacoes);
         return redirect('/')->with('success_update',"{$validacoes['nome_hunter']} obteve atualização em suas informações.");
@@ -108,7 +114,9 @@ class HunterController extends Controller
         HunterModel::where('id', Crypt::decrypt($id))->delete();
         if(Storage::exists($hunter->imagem_hunter)) {
             Storage::delete($hunter->imagem_hunter);
-         }
+        } else {
+            dd("Não foi possível excluir a imagem de $nome do projeto, refaça a operação.");
+        }
         return redirect('/')->with('success_destroy',"$nome não está mais presente no sistema.");
     }
 
