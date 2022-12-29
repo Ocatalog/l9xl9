@@ -44,8 +44,7 @@ class HunterController extends Controller
     public function store(HunterRequest $request)
     {
         $validacoes = $request->validated();
-        $random_serial = Str::random(10);
-        $validacoes['serial'] = Str::upper($random_serial);
+        $validacoes['serial'] = Str::upper(Str::random(10));
         $validacoes['propriedades'] = $validacoes;
         $path = $request->file('imagem_hunter')->store('avatars');
         if(!empty($path)){
