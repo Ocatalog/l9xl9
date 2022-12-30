@@ -74,7 +74,7 @@
                                     <td title="{{ $hxh->tipo_nen }}">{{ $hxh->tipo_nen }}</td>
                                     <td title="{{ $hxh->tipo_sangue }}">{{ $hxh->tipo_sangue }}</td>
                                     <td title="{{ $hxh->serial }}">{{ $hxh->serial }}</td>
-                                    <td title="{{ $hxh->nome_hunter }}"> <img src="{{ storage_path("app/".$hxh->imagem_hunter) }}" height=100 width=100> </td>
+                                    <td title="{{ $hxh->nome_hunter }}"> <img src="{{ asset($hxh->imagem_hunter) }}" height=100 width=100> </td>
                                     <td title="{{ \Carbon\Carbon::parse($hxh->data_cadastro)->format('d/m/Y H:i:s')}}">{{ \Carbon\Carbon::parse($hxh->data_cadastro)->format('d/m/Y H:i:s')}}</td>
                                     <td title="{{ $hxh->data_atualizacao == $hxh->data_cadastro ? 'Sem atualização' : \Carbon\Carbon::parse($hxh->data_atualizacao)->format('d/m/Y H:i:s')}}">
                                     {{ $hxh->data_atualizacao == $hxh->data_cadastro ? 'Sem atualização' : \Carbon\Carbon::parse($hxh->data_atualizacao)->format('d/m/Y H:i:s')}}</td>
