@@ -22,6 +22,7 @@ Validações de formulário | Funcionando
 Filtragem de Hunter(s) | Funcionando
 Alertas de ações feitas | Funcionando
 Exportação de dados para pdf | Funcionando
+Download do avatar do registro em zip | Funcionando
 
 <h1 align="center"> Listagem de Hunters </h1>
 

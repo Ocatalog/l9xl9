@@ -114,7 +114,7 @@
                             <div class="form_group">
                                 <div for="imagem_hunter">Imagem:
                                     <input type="file" class="form-control" name="imagem_hunter">
-                                    <img src="{{ storage_path("app/".$hunter->imagem_hunter) }}" height=100 width=100>
+                                    <img src="{{ asset($hunter->imagem_hunter) }}" height=100 width=100>
                                 </div>
                             </div>
                             <br>
