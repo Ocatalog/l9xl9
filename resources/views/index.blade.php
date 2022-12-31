@@ -80,6 +80,7 @@
                                     {{ $hxh->data_atualizacao == $hxh->data_cadastro ? 'Sem atualização' : \Carbon\Carbon::parse($hxh->data_atualizacao)->format('d/m/Y H:i:s')}}</td>
                                     <td>
                                         <form action="{{ url("delete/".encrypt($hxh->id)) }}" method="POST">
+                                            <a href="{{ url("download-zip/".encrypt($hxh->id)) }}" class="btn btn-warning" title="Donwload imagem de {{ $hxh->nome_hunter }}"><i class="fa fa-file-zipper"></i>&nbsp;Download</a>
                                             <a href="{{ url("update/".encrypt($hxh->id)) }}" class="btn btn-primary" title="Atualizar {{ $hxh->nome_hunter }}"><i class="fa fa-arrows-rotate"></i>&nbsp;Atualizar</a>
                                             {{ ' ' }} {{ method_field('DELETE') }} {{ csrf_field() }}
                                             <button type="submit" class="btn btn-danger" title="Deletar {{ $hxh->nome_hunter }}"><i class="fa fa-trash"></i>&nbsp;Deletar</button>

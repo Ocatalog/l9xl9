@@ -9,8 +9,10 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HunterRequest;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
+use ZipArchive;
 
 class HunterController extends Controller
 {
@@ -145,6 +147,23 @@ class HunterController extends Controller
         } else {
             return redirect('/')->with('export_pdf_error',"É necessário haver registros para exportar em arquivo PDF.");
         }
+    }
+
+    public function downloadZip($id){
+        $zip_archive = new ZipArchive();
+        $nome_hunter = DB::table('hunters')->where('id','=', Crypt::decrypt($id))->value('nome_hunter');
+        $name_zip = "Hunter $nome_hunter".'.zip';
+        if ($zip_archive->open(storage_path($name_zip), ZipArchive::CREATE) == TRUE){
+            $files = File::files(storage_path('app/avatars/'.Crypt::decrypt($id)));
+            foreach($files as $key){
+                $name_file = basename($key);
+                $zip_archive->addFile($key, $name_file);
+            }
+            $zip_archive->close();
+        } else {
+            dd("Não foi possível realizar a zipagem das imagem(ns) de $nome_hunter.");
+        }
+        return response()->download(storage_path($name_zip))->deleteFileAfterSend(true);
     }
 
 }
