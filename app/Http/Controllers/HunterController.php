@@ -155,9 +155,9 @@ class HunterController extends Controller
         $name_zip = "Hunter $nome_hunter".'.zip';
         if ($zip_archive->open(storage_path($name_zip), ZipArchive::CREATE) == TRUE){
             $files = File::files(storage_path('app/avatars/'.Crypt::decrypt($id)));
-            foreach($files as $key){
-                $name_file = basename($key);
-                $zip_archive->addFile($key, $name_file);
+            foreach($files as $key => $value){
+                $name_file = basename($value);
+                $zip_archive->addFile($value, $name_file);
             }
             $zip_archive->close();
         } else {
