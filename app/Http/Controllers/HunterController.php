@@ -46,13 +46,15 @@ class HunterController extends Controller
         $validacoes = $request->validated();
         $validacoes['serial'] = Str::upper(Str::random(10));
         $validacoes['propriedades'] = $validacoes;
-        $path = $request->file('imagem_hunter')->store('avatars');
+        $fighter = HunterModel::create($validacoes);
+        $idRegistro = $fighter->id;
+        $path = $request->file('imagem_hunter')->store("avatars/$idRegistro");
         if(!empty($path)){
             $validacoes['imagem_hunter'] = $path;
         } else {
             dd("Não foi possível inserir a imagem de {$validacoes['nome_hunter']}, refaça a operação.");
         }
-        HunterModel::create($validacoes);
+        $fighter->update($validacoes);
         return redirect('/')->with('success_store',"{$validacoes['nome_hunter']} está presente no sistema.");
     }
 
@@ -93,10 +95,12 @@ class HunterController extends Controller
         $hunter = HunterModel::find(Crypt::decrypt($id));
         if(Storage::exists($hunter->imagem_hunter)){
             Storage::delete($hunter->imagem_hunter);
-            $path = $request->file('imagem_hunter')->store('avatars');
-            $validacoes['imagem_hunter'] = $path;
-        } else {
-            dd("Não foi possível atualizar a imagem de {$validacoes['nome_hunter']}, refaça a operação.");
+            $path = $request->file('imagem_hunter')->store('avatars/'.Crypt::decrypt($id));
+            if(!empty($path)){
+                $validacoes['imagem_hunter'] = $path;
+            } else {
+                dd("Não foi possível inserir a imagem de {$validacoes['nome_hunter']}, refaça a operação.");
+            }
         }
         HunterModel::where('id', Crypt::decrypt($id))->update($validacoes);
         return redirect('/')->with('success_update',"{$validacoes['nome_hunter']} obteve atualização em suas informações.");
@@ -114,7 +118,7 @@ class HunterController extends Controller
         $nome = DB::table('hunters')->where('id','=', Crypt::decrypt($id))->value('nome_hunter');
         HunterModel::where('id', Crypt::decrypt($id))->delete();
         if(Storage::exists($hunter->imagem_hunter)){
-            Storage::delete($hunter->imagem_hunter);
+            Storage::deleteDirectory(dirname($hunter->imagem_hunter));
         } else {
             dd("Não foi possível excluir a imagem de $nome do projeto, refaça a operação.");
         }
