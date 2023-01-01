@@ -23,7 +23,7 @@ class HunterController extends Controller
      */
     public function index()
     {
-        $hunter = HunterModel::paginate(5);
+        $hunter = HunterModel::all();
         return view('index', compact('hunter'));
     }
 
@@ -49,8 +49,8 @@ class HunterController extends Controller
         $validacoes['serial'] = Str::upper(Str::random(10));
         $validacoes['propriedades'] = $validacoes;
         $fighter = HunterModel::create($validacoes);
-        $idRegistro = $fighter->id;
-        $path = $request->file('imagem_hunter')->store("avatars/$idRegistro");
+        $id_registro = $fighter->id;
+        $path = $request->file('imagem_hunter')->store("avatars/$id_registro");
         if(!empty($path)){
             $validacoes['imagem_hunter'] = $path;
         } else {
@@ -125,17 +125,6 @@ class HunterController extends Controller
             dd("Não foi possível excluir a imagem de $nome do projeto, refaça a operação.");
         }
         return redirect('/')->with('success_destroy',"$nome não está mais presente no sistema.");
-    }
-
-    public function search(Request $request)
-    {
-        $search = $request->input('search');
-        if (!empty($search)){
-            $hunter = HunterModel::where('nome_hunter','LIKE',"%{$search}%")->get();
-            return view('search', compact('hunter'));
-        } else {
-            return redirect('/')->with('search_error',"Campo de pesquisa não aceita valores vazios ou nulos.");
-        }
     }
 
     public function exportPDF()
