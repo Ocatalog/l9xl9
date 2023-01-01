@@ -101,10 +101,10 @@ class HunterController extends Controller
             if(!empty($path)){
                 $validacoes['imagem_hunter'] = $path;
             } else {
-                dd("Não foi possível inserir a imagem de {$validacoes['nome_hunter']}, refaça a operação.");
+                dd("Não foi possível atualizar a imagem de {$validacoes['nome_hunter']}, refaça a operação.");
             }
         }
-        HunterModel::where('id', Crypt::decrypt($id))->update($validacoes);
+        HunterModel::where('id',Crypt::decrypt($id))->update($validacoes);
         return redirect('/')->with('success_update',"{$validacoes['nome_hunter']} obteve atualização em suas informações.");
     }
 
@@ -117,7 +117,7 @@ class HunterController extends Controller
     public function destroy($id)
     {
         $hunter = HunterModel::find(Crypt::decrypt($id));
-        $nome = DB::table('hunters')->where('id','=', Crypt::decrypt($id))->value('nome_hunter');
+        $nome = DB::table('hunters')->where('id','=',Crypt::decrypt($id))->value('nome_hunter');
         HunterModel::where('id', Crypt::decrypt($id))->delete();
         if(Storage::exists($hunter->imagem_hunter)){
             Storage::deleteDirectory(dirname($hunter->imagem_hunter));
@@ -143,8 +143,8 @@ class HunterController extends Controller
         $nome_hunter = DB::table('hunters')->where('id','=', Crypt::decrypt($id))->value('nome_hunter');
         $name_zip = "Hunter $nome_hunter".'.zip';
         if ($zip_archive->open(storage_path($name_zip), ZipArchive::CREATE) == TRUE){
-            $files = File::files(storage_path('app/avatars/'.Crypt::decrypt($id)));
-            foreach($files as $key => $value){
+            $file = File::files(storage_path('app/avatars/'.Crypt::decrypt($id)));
+            foreach($file as $key => $value){
                 $name_file = basename($value);
                 $zip_archive->addFile($value, $name_file);
             }
