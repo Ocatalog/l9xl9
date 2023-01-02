@@ -140,7 +140,7 @@ class HunterController extends Controller
 
     public function downloadZip($id){
         $zip_archive = new ZipArchive();
-        $nome_hunter = DB::table('hunters')->where('id','=', Crypt::decrypt($id))->value('nome_hunter');
+        $nome_hunter = DB::table('hunters')->where('id','=',Crypt::decrypt($id))->value('nome_hunter');
         $name_zip = "Hunter $nome_hunter".'.zip';
         if ($zip_archive->open(storage_path($name_zip), ZipArchive::CREATE) == TRUE){
             $file = File::files(storage_path('app/avatars/'.Crypt::decrypt($id)));

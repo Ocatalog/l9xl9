@@ -37,7 +37,7 @@ class HunterRequest extends FormRequest
             'Hunter Terrorista','Hunter de Venenos','Hunter Caçador','Hunter Paleógrafo','Hunter Perdido','Hunter Provisório','Hunter Temporário'])],
             'tipo_nen' => ['required','max:30', Rule::in(['Reforço','Emissão','Transformação','Manipulação','Materialização','Especialização'])],
             'tipo_sangue' => ['required','max:3', Rule::in(['A+','A-','B+','B-','AB+','AB-','O+','O-'])],
-            'imagem_hunter' => 'required|max:1024|mimes:jpg,jpge,png,svg,bmp',
+            'imagem_hunter' => 'required|max:1024|image',
             'serial' => 'unique:hunters,serial',
         ];
     }
@@ -69,7 +69,7 @@ class HunterRequest extends FormRequest
             'tipo_sangue.in' => 'Tipo sanguíneo desconhecido, escolha uma das opções válidas.',
             'imagem_hunter.required' => 'É obrigatório inserir a imagem do Hunter.',
             'imagem_hunter.max' => 'A imagem do Hunter deve ocupar no máximo 1024KB (1MB) de espaço.',
-            'imagem_hunter.mimes' => 'As extensões permitidas para a imagem são: .jpg, .jpeg, .png, .svg e .bmp.',
+            'imagem_hunter.image' => 'As extensões permitidas para a imagem são: .jpg, .jpeg, .png, .bmp, .gif, .svg e .webp.',
             'serial.unique' => 'Não é permitido a repetição de um mesmo valor de serial.',
         ];
     }
