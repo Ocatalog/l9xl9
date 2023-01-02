@@ -132,6 +132,9 @@ class HunterController extends Controller
         $hunter = HunterModel::all();
         if ($hunter->isNotEmpty()){
             $pdf = PDF::loadView('table_export', compact('hunter'));
+            $pdf->setPaper('A4','landscape');
+            $pdf->render();
+            $pdf->stream();
             return $pdf->download(Str::random(10).'.pdf');
         } else {
             return redirect('/')->with('export_pdf_error',"É necessário haver registros para exportar em arquivo PDF.");

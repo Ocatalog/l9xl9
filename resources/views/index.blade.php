@@ -47,7 +47,7 @@
                                 <th title="Serial">Serial</th>
                                 <th title="Data de cadastro">Data de cadastro</th>
                                 <th title="Data de atualização">Data de atualização</th>
-                                <th title="Ação(ões)">Ação(ões)</th>
+                                <th title="Ações">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
