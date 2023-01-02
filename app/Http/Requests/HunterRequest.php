@@ -70,7 +70,7 @@ class HunterRequest extends FormRequest
             'imagem_hunter.required' => 'É obrigatório inserir a imagem do Hunter.',
             'imagem_hunter.max' => 'A imagem do Hunter deve ocupar no máximo 1024KB (1MB) de espaço.',
             'imagem_hunter.image' => 'As extensões permitidas para a imagem são: .jpg, .jpeg, .png, .bmp, .gif, .svg e .webp.',
-            'serial.unique' => 'Não é permitido a repetição de um mesmo valor de serial.',
+            'serial.unique' => 'Houve uma repetição na aleatoriedade do serial.',
         ];
     }
 }
