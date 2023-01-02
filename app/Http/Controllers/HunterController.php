@@ -54,7 +54,7 @@ class HunterController extends Controller
         if(!empty($path)){
             $validacoes['imagem_hunter'] = $path;
         } else {
-            dd("Não foi possível inserir a imagem de {$validacoes['nome_hunter']}, refaça a operação.");
+            dd("Não foi possível inserir o avatar de {$validacoes['nome_hunter']}, refaça a operação.");
         }
         $hunter->update($validacoes);
         return redirect('/')->with('success_store',"{$validacoes['nome_hunter']} está presente no sistema.");
@@ -101,7 +101,7 @@ class HunterController extends Controller
             if(!empty($path)){
                 $validacoes['imagem_hunter'] = $path;
             } else {
-                dd("Não foi possível atualizar a imagem de {$validacoes['nome_hunter']}, refaça a operação.");
+                dd("Não foi possível atualizar o avatar de {$validacoes['nome_hunter']}, refaça a operação.");
             }
         }
         HunterModel::where('id', Crypt::decrypt($id))->update($validacoes);
@@ -122,7 +122,7 @@ class HunterController extends Controller
         if(Storage::exists($hunter->imagem_hunter)){
             Storage::deleteDirectory(dirname($hunter->imagem_hunter));
         } else {
-            dd("Não foi possível excluir a imagem de $nome do projeto, refaça a operação.");
+            dd("Não foi possível excluir o avatar de $nome, refaça a operação.");
         }
         return redirect('/')->with('success_destroy',"$nome não está mais presente no sistema.");
     }
@@ -137,7 +137,7 @@ class HunterController extends Controller
             $pdf->stream();
             return $pdf->download(Str::random(10).'.pdf');
         } else {
-            return redirect('/')->with('export_pdf_error',"É necessário haver registros para exportar em arquivo PDF.");
+            return redirect('/')->with('export_pdf_error',"É necessário haver no mínimo 1 registro para exportar em arquivo PDF.");
         }
     }
 
@@ -153,7 +153,7 @@ class HunterController extends Controller
             }
             $zip_archive->close();
         } else {
-            dd("Não foi possível realizar a zipagem das imagem(ns) de $nome_hunter.");
+            dd("Não foi possível realizar a zipagem do avatar de $nome_hunter.");
         }
         return response()->download(storage_path($name_zip))->deleteFileAfterSend(true);
     }
