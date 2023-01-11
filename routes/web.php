@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HunterController;
+use App\Http\Controllers\FallbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,5 @@ Route::controller(HunterController::class)->group(function () {
     Route::patch('/update/{id}', 'update');
     Route::delete('/delete/{id}', 'destroy');
 });
+
+Route::fallback(FallbackController::class);
