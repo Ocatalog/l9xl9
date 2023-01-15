@@ -49,6 +49,7 @@
                                 <th title="Tipo de nen">Tipo de Nen</th>
                                 <th title="Tipo sanguíneo">Tipo sanguíneo</th>
                                 <th title="Serial">Serial</th>
+                                {{-- <th title="Propriedades">Propriedades</th> --}}
                                 <th title="Data de cadastro">Data de cadastro</th>
                                 <th title="Data de atualização">Data de atualização</th>
                                 <th title="Ações">Ações</th>
@@ -67,6 +68,7 @@
                                     <td title="{{ $hxh->tipo_nen }}">{{ $hxh->tipo_nen }}</td>
                                     <td title="{{ $hxh->tipo_sangue }}">{{ $hxh->tipo_sangue }}</td>
                                     <td title="{{ $hxh->serial }}">{{ $hxh->serial }}</td>
+                                    {{-- <td> {{ json_encode($hxh->propriedades, JSON_UNESCAPED_UNICODE) }}</td> --}}
                                     <td title="{{ \Carbon\Carbon::parse($hxh->data_cadastro)->format('d/m/Y H:i:s')}}">{{ \Carbon\Carbon::parse($hxh->data_cadastro)->format('d/m/Y H:i:s')}}</td>
                                     <td title="{{ $hxh->data_atualizacao == $hxh->data_cadastro ? 'Sem atualização' : \Carbon\Carbon::parse($hxh->data_atualizacao)->format('d/m/Y H:i:s')}}">
                                     {{ $hxh->data_atualizacao == $hxh->data_cadastro ? 'Sem atualização' : \Carbon\Carbon::parse($hxh->data_atualizacao)->format('d/m/Y H:i:s')}}</td>
