@@ -24,7 +24,7 @@
                         </div>
                     @endif
                     <!-- Form -->
-                    <form action="{{ url("create") }}" method="POST">
+                    <form action="{{ url("create") }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form_group">
                             <div class="form_group">
@@ -78,7 +78,7 @@
                                         <option {{ old('tipo_hunter') == 'Hunter Provisório' ? 'selected' : ''}} value="Hunter Provisório">Hunter Provisório</option>
                                         <option {{ old('tipo_hunter') == 'Hunter Temporário' ? 'selected' : ''}} value="Hunter Temporário">Hunter Temporário</option>
                                     </select>
-                                </div> 
+                                </div>
                             </div>
                             <br>
                             <div class="form_group">
@@ -111,6 +111,12 @@
                                 </div>
                             </div>
                             <br>
+                            <div class="form_group">
+                                <div for="imagem_hunter">Imagem:
+                                    <input type="file" class="form-control" name="imagem_hunter" value="{{ old('imagem_hunter') }}">
+                                </div>
+                            </div>
+                            <br>
                             <button type="submit" class="btn btn-success" title="Cadastrar"><i class="fa fa-plus"></i>&nbsp;Cadastrar</button>
                         </div>
                     </div>
@@ -118,12 +124,4 @@
             </div>
         </div>
     </div>
-    <!-- Footer -->
-    <footer class="container">
-        <div class="row">
-            <div class="col text-center">
-                <em> Iury Fernandes, {{ date('Y') }}.</em>
-            </div>
-        </div>
-    </footer>   
 @endsection

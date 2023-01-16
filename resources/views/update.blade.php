@@ -6,7 +6,7 @@
             <div class="col-md-12 mt-2">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Atualizar Hunter
+                        <h4>Atualizar {{ $hunter->nome_hunter }}
                             <a href=" {{ url("/") }} " class="btn btn-secondary float-end" title="Retornar listagem"><i class="fa fa-arrow-left"></i>&nbsp;Retornar listagem</a>
                         </h4>
                     </div>
@@ -24,7 +24,7 @@
                         </div>
                     @endif
                     <!-- Form -->
-                    <form action="{{ url("update/$hunter->id") }}" method="POST">
+                    <form action="{{ url("update/".encrypt($hunter->id)) }}" method="POST" enctype="multipart/form-data">
                         {{ method_field('PATCH') }} {{ csrf_field() }}
                         <div class="form_group">
                             <div class="form_group">
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                             <br>
-                            <div class="form_group"> 
+                            <div class="form_group">
                                 <div for="tipo_hunter">Tipo de Hunter:
                                     <select class="form-control" name="tipo_hunter">
                                         <option value="" {{ $hunter->tipo_hunter == '' ? 'selected' : ''}}>Defina o tipo de Hunter</option>
@@ -78,7 +78,7 @@
                                         <option value="Hunter Provisório" {{ $hunter->tipo_hunter == 'Hunter Provisório' ? 'selected' : ''}}>Hunter Provisório</option>
                                         <option value="Hunter Temporário" {{ $hunter->tipo_hunter == 'Hunter Temporário' ? 'selected' : ''}}>Hunter Temporário</option>
                                     </select>
-                                </div> 
+                                </div>
                             </div>
                             <br>
                             <div class="form_group">
@@ -111,6 +111,13 @@
                                 </div>
                             </div>
                             <br>
+                            <div class="form_group">
+                                <div for="imagem_hunter">Imagem:
+                                    <input type="file" class="form-control" name="imagem_hunter">
+                                    <img src="{{ asset($hunter->imagem_hunter) }}" height=100 width=100>
+                                </div>
+                            </div>
+                            <br>
                             <button type="submit" class="btn btn-primary" title="Atualizar"><i class="fa fa-arrows-rotate"></i>&nbsp;Atualizar</button>
                         </div>
                     </div>
@@ -118,12 +125,4 @@
             </div>
         </div>
     </div>
-    <!-- Footer -->
-    <footer class="container">
-        <div class="row">
-            <div class="col text-center">
-                <em> Iury Fernandes, {{ date('Y') }}.</em>
-            </div>
-        </div>
-    </footer>    
 @endsection
