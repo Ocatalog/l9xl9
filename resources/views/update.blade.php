@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Atualizar {{ $hunter->nome_hunter }}
-                            <a href=" {{ url("/") }} " class="btn btn-secondary float-end" title="Retornar listagem"><i class="fa fa-arrow-left"></i>&nbsp;Retornar listagem</a>
+                            <a href="{{ url("/") }}" class="btn btn-secondary float-end" title="Retornar listagem"><i class="fa fa-arrow-left"></i>&nbsp;Retornar listagem</a>
                         </h4>
                     </div>
                 </div>

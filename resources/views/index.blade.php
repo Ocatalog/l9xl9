@@ -2,27 +2,7 @@
 @section('title', 'Listar Hunters')
 @section('content')
     <!-- Alert status -->
-    @if ($mensagem = Session::get('success_store'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <p>{{ $mensagem }}</p>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @elseif ($mensagem = Session::get('success_update'))
-        <div class="alert alert-primary alert-dismissible fade show" role="alert">
-            <p>{{ $mensagem }}</p>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @elseif ($mensagem = Session::get('success_destroy'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <p>{{ $mensagem }}</p>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @elseif ($mensagem = Session::get('export_pdf_error'))
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <p>{{ $mensagem }}</p>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
+    @include('components.alert-component')
     <!-- Form -->
     <div class="contained">
         <div class="row">
@@ -31,7 +11,7 @@
                     <div class="card-header">
                         <h4>Listar Hunters
                             <a href="{{ url("create") }}" class="btn btn-success float-end" title="Cadastrar"><i class="fa fa-plus"></i>&nbsp;Cadastrar</a>
-                            <a href="{{ url("export_pdf") }}" class="btn btn-dark float-center" title="Cadastrar"><i class="fa fa-file-pdf"></i>&nbsp;Exportar PDF</a>
+                            <a href="{{ url("export_pdf") }}" class="btn btn-dark float-center" title="Exportar PDF"><i class="fa fa-file-pdf"></i>&nbsp;Exportar PDF</a>
                         </h4>
                     </div>
                 </div>

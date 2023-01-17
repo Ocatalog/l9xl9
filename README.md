@@ -21,7 +21,8 @@ Validações de formulário | Funcionando
 Filtragem de Hunter(s) | Funcionando
 Alertas de ações feitas | Funcionando
 Exportação de dados para pdf | Funcionando
-Download do avatar do registro em zip | Funcionando
+Download zipado da foto do Hunter | Funcionando
+Fallback route | Funcionando
 
 <h1 align="center"> Listagem de Hunters </h1>
 
@@ -35,6 +36,6 @@ Download do avatar do registro em zip | Funcionando
 
 ![](https://github.com/Iury189/l9xl9/blob/main/public/imagens/Atualizacao.png?raw=true)
 
-<h1 align="center"> Fallback (Substituido 404 Not Found) </h1>
+<h1 align="center"> Fallback (Substituindo 404 Not Found) </h1>
 
 ![](https://github.com/Iury189/l9xl9/blob/main/public/imagens/Fallback.png?raw=true)
