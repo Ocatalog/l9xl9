@@ -99,22 +99,23 @@ class HunterController extends Controller
         $decriptado_id = Crypt::decrypt($id);
         $imagens_antigas = explode(',', HunterModel::find($decriptado_id)->imagem_hunter);
         $imagens_paths = [];
-        foreach ($imagens_antigas as $imagem) {
-            if(Storage::exists($imagem)){
-                Storage::delete($imagem);
+        if ($request->hasFile('imagem_hunter')) {
+            foreach ($imagens_antigas as $imagem) {
+                if(Storage::exists($imagem)){
+                    Storage::delete($imagem);
+                }
             }
-        }
-        foreach ($request->file('imagem_hunter') as $imagem) {
-            $imagens_paths[] = $imagem->store("avatars/$decriptado_id");
-        }
-        if(!empty($imagens_paths)){
-            HunterModel::where('id', $decriptado_id)->update(['imagem_hunter' => implode(',', $imagens_paths)]);
-        } else {
-            dd("Não foi possível atualizar as imagens de {$validacoes['nome_hunter']}, refaça a operação.");
+            foreach ($request->file('imagem_hunter') as $imagem) {
+                $imagens_paths[] = $imagem->store("avatars/$decriptado_id");
+            }
+            if(!empty($imagens_paths)) {
+                HunterModel::where('id', $decriptado_id)->update(['imagem_hunter' => implode(',', $imagens_paths)]);
+            } else {
+                dd("Não foi possível atualizar as imagens de {$validacoes['nome_hunter']}, refaça a operação.");
+            }
         }
         return redirect('/')->with('success_update',"{$validacoes['nome_hunter']} obteve atualização em suas informações.");
     }
-
     /**
      * Remove the specified resource from storage.
      *
