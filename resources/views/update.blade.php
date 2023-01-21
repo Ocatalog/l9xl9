@@ -113,8 +113,10 @@
                             <br>
                             <div class="form_group">
                                 <div for="imagem_hunter">Imagem:
-                                    <input type="file" class="form-control" name="imagem_hunter">
-                                    <img src="{{ asset($hunter->imagem_hunter) }}" height=100 width=100>
+                                    <input type="file" class="form-control" name="imagem_hunter[]" multiple>
+                                    @foreach (explode(',', $hunter->imagem_hunter) as $imagens)
+                                        <img src="{{ asset($imagens) }}" height=100 width=100>
+                                    @endforeach
                                 </div>
                             </div>
                             <br>

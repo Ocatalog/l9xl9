@@ -39,7 +39,11 @@
                             @foreach($hunter as $hxh)
                                 <tr>
                                     <td title="{{ $hxh->id }}">{{ $hxh->id }}</td>
-                                    <td title="{{ $hxh->nome_hunter }}"> <img src="{{ asset($hxh->imagem_hunter) }}" height=100 width=100> </td>
+                                    <td>
+                                        @foreach (explode(',', $hxh->imagem_hunter) as $imagem)
+                                            <img src="{{ asset($imagem) }}" height=100 width=100 style="margin: 5px">
+                                        @endforeach
+                                    </td>
                                     <td title="{{ $hxh->nome_hunter }}">{{ $hxh->nome_hunter }}</td>
                                     <td title="{{ $hxh->idade_hunter }}">{{ $hxh->idade_hunter }}</td>
                                     <td title="{{ $hxh->altura_hunter }} m">{{ $hxh->altura_hunter }} m</td>

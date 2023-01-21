@@ -113,7 +113,7 @@
                             <br>
                             <div class="form_group">
                                 <div for="imagem_hunter">Imagem:
-                                    <input type="file" class="form-control" name="imagem_hunter" value="{{ old('imagem_hunter') }}">
+                                    <input type="file" class="form-control" name="imagem_hunter[]" multiple>
                                 </div>
                             </div>
                             <br>

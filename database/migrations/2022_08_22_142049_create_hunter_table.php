@@ -22,11 +22,10 @@ return new class extends Migration
             $table->string('tipo_hunter', 50);
             $table->string('tipo_nen', 50);
             $table->string('tipo_sangue', 3);
-            $table->string('imagem_hunter');
+            $table->text('imagem_hunter');
             $table->string('serial', 10)->unique();
             $table->timestamp('data_cadastro')->useCurrent();
             $table->timestamp('data_atualizacao')->useCurrent()->useCurrentOnUpdate();
-            $table->json('propriedades');
         });
     }
 

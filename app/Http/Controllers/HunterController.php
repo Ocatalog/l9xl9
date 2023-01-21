@@ -47,16 +47,19 @@ class HunterController extends Controller
     {
         $validacoes = $request->validated();
         $validacoes['serial'] = Str::upper(Str::random(10));
-        $validacoes['propriedades'] = $validacoes;
-        $hunter = HunterModel::create($validacoes);
-        $id_registro = $hunter->id;
-        $path = $request->file('imagem_hunter')->store("avatars/$id_registro");
-        if(!empty($path)){
-            $validacoes['imagem_hunter'] = $path;
-        } else {
-            dd("Não foi possível inserir o avatar de {$validacoes['nome_hunter']}, refaça a operação.");
+        $validacoes['imagem_hunter'] = implode(',', $validacoes['imagem_hunter']);
+        $registro = HunterModel::create($validacoes);
+        $registro_id = $registro->id;
+        $imagens_paths = [];
+        foreach ($request->file('imagem_hunter') as $imagem) {
+            $imagens_paths[] = $imagem->store("avatars/$registro_id");
         }
-        $hunter->update($validacoes);
+        if(!empty($imagens_paths)){
+            $registro->imagem_hunter = implode(',', $imagens_paths);
+            $registro->save();
+        } else {
+            dd("Não foi possível inserir as imagens de {$validacoes['nome_hunter']}, refaça a operação.");
+        }
         return redirect('/')->with('success_store',"{$validacoes['nome_hunter']} está presente no sistema.");
     }
 
@@ -93,18 +96,22 @@ class HunterController extends Controller
     public function update(HunterRequest $request, $id)
     {
         $validacoes = $request->validated();
-        $validacoes['propriedades'] = $validacoes;
-        $hunter = HunterModel::find(Crypt::decrypt($id));
-        if(Storage::exists($hunter->imagem_hunter)){
-            Storage::delete($hunter->imagem_hunter);
-            $path = $request->file('imagem_hunter')->store('avatars/'.Crypt::decrypt($id));
-            if(!empty($path)){
-                $validacoes['imagem_hunter'] = $path;
-            } else {
-                dd("Não foi possível atualizar o avatar de {$validacoes['nome_hunter']}, refaça a operação.");
+        $decriptado_id = Crypt::decrypt($id);
+        $imagens_antigas = explode(',', HunterModel::find($decriptado_id)->imagem_hunter);
+        $imagens_paths = [];
+        foreach ($imagens_antigas as $imagem) {
+            if(Storage::exists($imagem)){
+                Storage::delete($imagem);
             }
         }
-        HunterModel::where('id', Crypt::decrypt($id))->update($validacoes);
+        foreach ($request->file('imagem_hunter') as $imagem) {
+            $imagens_paths[] = $imagem->store("avatars/$decriptado_id");
+        }
+        if(!empty($imagens_paths)){
+            HunterModel::where('id', $decriptado_id)->update(['imagem_hunter' => implode(',', $imagens_paths)]);
+        } else {
+            dd("Não foi possível atualizar as imagens de {$validacoes['nome_hunter']}, refaça a operação.");
+        }
         return redirect('/')->with('success_update',"{$validacoes['nome_hunter']} obteve atualização em suas informações.");
     }
 
@@ -116,14 +123,18 @@ class HunterController extends Controller
      */
     public function destroy($id)
     {
-        $hunter = HunterModel::find(Crypt::decrypt($id));
-        $nome = DB::table('hunters')->where('id','=', Crypt::decrypt($id))->value('nome_hunter');
-        HunterModel::where('id', Crypt::decrypt($id))->delete();
-        if(Storage::exists($hunter->imagem_hunter)){
-            Storage::deleteDirectory(dirname($hunter->imagem_hunter));
-        } else {
-            dd("Não foi possível excluir o avatar de $nome, refaça a operação.");
+        $decriptado_id = Crypt::decrypt($id);
+        $imagens_hunter = explode(',', HunterModel::find($decriptado_id)->imagem_hunter);
+        $nome = HunterModel::find($decriptado_id)->nome_hunter;
+        if(!empty($imagens_hunter)){
+            foreach ($imagens_hunter as $imagem) {
+                if(Storage::exists($imagem)){
+                    Storage::delete($imagem);
+                }
+            }
+            Storage::deleteDirectory("avatars/$decriptado_id");
         }
+        HunterModel::where('id', $decriptado_id)->delete();
         return redirect('/')->with('success_destroy',"$nome não está mais presente no sistema.");
     }
 
