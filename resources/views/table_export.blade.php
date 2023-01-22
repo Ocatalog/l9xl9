@@ -10,7 +10,6 @@
                         <thead>
                             <tr>
                                 <th title="ID">ID</th>
-                                <th title="Avatar">Avatar</th>
                                 <th title="Nome">Nome</th>
                                 <th title="Idade">Idade</th>
                                 <th title="Altura">Altura</th>
@@ -27,7 +26,6 @@
                             @foreach($hunter as $hxh)
                                 <tr>
                                     <td title="{{ $hxh->id }}">{{ $hxh->id }}</td>
-                                    <td title="{{ $hxh->nome_hunter }}"> <img src="{{ asset($hxh->imagem_hunter) }}" height=100 width=100> </td>
                                     <td title="{{ $hxh->nome_hunter }}">{{ $hxh->nome_hunter }}</td>
                                     <td title="{{ $hxh->idade_hunter }}">{{ $hxh->idade_hunter }}</td>
                                     <td title="{{ $hxh->peso_hunter }} kg">{{ $hxh->peso_hunter }} kg</td>

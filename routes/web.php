@@ -19,15 +19,16 @@ use App\Http\Controllers\FallbackController;
 //     return view('welcome');
 // });
 
-Route::controller(HunterController::class)->group(function () {
+Route::controller(HunterController::class)->group(function() {
     Route::get('/', 'index');
     Route::get('/create', 'create');
-    Route::get('/export_pdf','exportPDF');
-    Route::get('download_zip/{id}', 'downloadZip');
+    Route::get('/show/{id}', 'show');
     Route::get('/update/{id}', 'edit');
     Route::post('/create', 'store');
     Route::patch('/update/{id}', 'update');
     Route::delete('/delete/{id}', 'destroy');
+    Route::get('/export_pdf','exportPDF');
+    Route::get('download_zip/{id}', 'downloadZip');
 });
 
 Route::fallback(FallbackController::class);
