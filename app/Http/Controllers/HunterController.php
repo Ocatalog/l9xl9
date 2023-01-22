@@ -95,8 +95,10 @@ class HunterController extends Controller
      */
     public function update(HunterRequest $request, $id)
     {
-        $validacoes = $request->validated();
         $decriptado_id = Crypt::decrypt($id);
+        $validacoes = $request->validated();
+        unset($validacoes['imagem_hunter']);
+        HunterModel::where('id', $decriptado_id)->update($validacoes);
         $imagens_antigas = explode(',', HunterModel::find($decriptado_id)->imagem_hunter);
         $imagens_paths = [];
         if ($request->hasFile('imagem_hunter')) {
