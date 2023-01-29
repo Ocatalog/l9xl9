@@ -52,7 +52,8 @@ class HunterController extends Controller
         $registro_id = $registro->id;
         $imagens_paths = [];
         foreach ($request->file('imagem_hunter') as $imagem) {
-            $imagens_paths[] = $imagem->store("avatars/$registro_id");
+            $original_names = $imagem->getClientOriginalName();
+            $imagens_paths[] = $imagem->storeAs("avatars/$registro_id", $original_names);
         }
         if(!empty($imagens_paths)){
             $registro->imagem_hunter = implode(',', $imagens_paths);
@@ -108,7 +109,8 @@ class HunterController extends Controller
                 }
             }
             foreach ($request->file('imagem_hunter') as $imagem) {
-                $imagens_paths[] = $imagem->store("avatars/$decriptado_id");
+                $original_names = $imagem->getClientOriginalName();
+                $imagens_paths[] = $imagem->storeAs("avatars/$decriptado_id", $original_names);
             }
             if(!empty($imagens_paths)) {
                 HunterModel::where('id', $decriptado_id)->update(['imagem_hunter' => implode(',', $imagens_paths)]);
@@ -155,7 +157,8 @@ class HunterController extends Controller
         }
     }
 
-    public function downloadZip($id){
+    public function downloadZip($id)
+    {
         $zip_archive = new ZipArchive();
         $nome_hunter = DB::table('hunters')->where('id','=', Crypt::decrypt($id))->value('nome_hunter');
         $name_zip = "Hunter $nome_hunter".'.zip';
