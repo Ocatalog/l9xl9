@@ -157,7 +157,7 @@ class HunterController extends Controller
         $hunter = HunterModel::onlyTrashed()->find($decriptado_id);
         File::moveDirectory(storage_path("app/trashed/avatars/$decriptado_id"), storage_path("app/avatars/$decriptado_id"));
         $hunter->restore();
-        return redirect('/')->with('success_restore',"$nome foi restaurado está agora de volta a listagem de HUnters.");
+        return redirect('/')->with('success_store',"$nome retornou a listagem de Hunters.");
     }
 
     public function destroyRegisterTrash($id)
