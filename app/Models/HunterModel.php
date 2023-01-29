@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class HunterModel extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = "hunters";
     protected $primaryKey = 'id';
     const CREATED_AT = 'data_cadastro';

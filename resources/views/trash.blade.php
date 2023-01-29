@@ -1,5 +1,5 @@
 @extends('templates.template_hunter')
-@section('title', 'Listar Hunters')
+@section('title', 'Hunters apagados')
 @section('content')
     <!-- Alert status -->
     @include('components.alert-component')
@@ -9,10 +9,8 @@
             <div class="col-md-12 mt-2">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Listar Hunters
-                            <a href="{{ url("create") }}" class="btn btn-success float-end" title="Cadastrar"><i class="fa fa-plus"></i>&nbsp;Cadastrar</a>
-                            <a href="{{ url("export_pdf") }}" class="btn btn-dark float-center" title="Exportar PDF"><i class="fa fa-file-pdf"></i>&nbsp;Exportar PDF</a>
-                            <a href="{{ url("trash") }}" class="btn btn-danger float-center" title="Ver lixeira"><i class="fa fa-dumpster"></i>&nbsp;Ver lixeira</a>
+                        <h4>Hunters apagados
+                            <a href="{{ url("/") }}" class="btn btn-secondary float-end" title="Retornar listagem"><i class="fa fa-arrow-left"></i>&nbsp;Retornar listagem</a>
                         </h4>
                     </div>
                 </div>
@@ -31,8 +29,7 @@
                                 <th title="Tipo sanguíneo">Tipo sanguíneo</th>
                                 <th title="Serial">Serial</th>
                                 {{-- <th title="Propriedades">Propriedades</th> --}}
-                                <th title="Data de cadastro">Data de cadastro</th>
-                                <th title="Data de atualização">Data de atualização</th>
+                                <th title="Data de cadastro">Data de exclusão</th>
                                 <th title="Ações">Ações</th>
                             </tr>
                         </thead>
@@ -42,7 +39,7 @@
                                     <td title="{{ $hxh->id }}">{{ $hxh->id }}</td>
                                     <td>
                                         @foreach (explode(',', $hxh->imagem_hunter) as $imagem)
-                                            <img src="{{ asset($imagem) }}" height=100 width=100 style="margin: 5px">
+                                            <img src="{{ asset('trashed/avatars/'.$hxh->id.'/'.$imagem) }}" height=100 width=100 style="margin: 5px">
                                         @endforeach
                                     </td>
                                     <td title="{{ $hxh->nome_hunter }}">{{ $hxh->nome_hunter }}</td>
@@ -54,15 +51,12 @@
                                     <td title="{{ $hxh->tipo_sangue }}">{{ $hxh->tipo_sangue }}</td>
                                     <td title="{{ $hxh->serial }}">{{ $hxh->serial }}</td>
                                     {{-- <td> {{ json_encode($hxh->propriedades, JSON_UNESCAPED_UNICODE) }}</td> --}}
-                                    <td title="{{ \Carbon\Carbon::parse($hxh->data_cadastro)->format('d/m/Y H:i:s')}}">{{ \Carbon\Carbon::parse($hxh->data_cadastro)->format('d/m/Y H:i:s')}}</td>
-                                    <td title="{{ $hxh->data_atualizacao == $hxh->data_cadastro ? 'Sem atualização' : \Carbon\Carbon::parse($hxh->data_atualizacao)->format('d/m/Y H:i:s')}}">
-                                    {{ $hxh->data_atualizacao == $hxh->data_cadastro ? 'Sem atualização' : \Carbon\Carbon::parse($hxh->data_atualizacao)->format('d/m/Y H:i:s')}}</td>
+                                    <td title="{{ \Carbon\Carbon::parse($hxh->deleted_at)->format('d/m/Y H:i:s')}}">{{ \Carbon\Carbon::parse($hxh->deleted_at)->format('d/m/Y H:i:s')}}</td>
                                     <td>
-                                        <form action="{{ url("delete/".encrypt($hxh->id)) }}" method="POST">
-                                            <a href="{{ url("download_zip/".encrypt($hxh->id)) }}" class="btn btn-warning" title="Donwload imagem de {{ $hxh->nome_hunter }}"><i class="fa fa-file-zipper"></i>&nbsp;Download</a>
-                                            <a href="{{ url("update/".encrypt($hxh->id)) }}" class="btn btn-primary" title="Atualizar {{ $hxh->nome_hunter }}"><i class="fa fa-arrows-rotate"></i>&nbsp;Atualizar</a>
+                                        <form action="{{ url("delete_register/".encrypt($hxh->id)) }}" method="POST">
+                                            <a href="{{ url("restore_register/".encrypt($hxh->id)) }}" class="btn btn-primary" title="Restaurar {{ $hxh->nome_hunter }}"><i class="fa fa-arrows-rotate"></i>&nbsp;Restaurar</a>
                                             {{ ' ' }} {{ method_field('DELETE') }} {{ csrf_field() }}
-                                            <button type="submit" class="btn btn-danger" title="Deletar {{ $hxh->nome_hunter }}"><i class="fa fa-trash"></i>&nbsp;Lixeira</button>
+                                            <button type="submit" class="btn btn-danger" title="Deletar {{ $hxh->nome_hunter }}"><i class="fa fa-trash"></i>&nbsp;Deletar</button>
                                         </form>
                                     </td>
                                 </tr>

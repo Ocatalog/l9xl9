@@ -22,11 +22,14 @@ use App\Http\Controllers\FallbackController;
 Route::controller(HunterController::class)->group(function() {
     Route::get('/', 'index');
     Route::get('/create', 'create');
+    Route::get('/trash', 'trashRegister');
     Route::get('/show/{id}', 'show');
     Route::get('/update/{id}', 'edit');
+    Route::get('/restore_register/{id}', 'restoreRegisterTrash');
     Route::post('/create', 'store');
     Route::patch('/update/{id}', 'update');
     Route::delete('/delete/{id}', 'destroy');
+    Route::delete('/delete_register/{id}', 'destroyRegisterTrash');
     Route::get('/export_pdf','exportPDF');
     Route::get('download_zip/{id}', 'downloadZip');
 });

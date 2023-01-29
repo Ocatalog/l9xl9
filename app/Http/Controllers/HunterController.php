@@ -132,15 +132,50 @@ class HunterController extends Controller
         $imagens_hunter = explode(',', HunterModel::find($decriptado_id)->imagem_hunter);
         $nome = HunterModel::find($decriptado_id)->nome_hunter;
         if(!empty($imagens_hunter)){
+            File::copyDirectory(storage_path("app/avatars/$decriptado_id"), storage_path("app/trashed/avatars/$decriptado_id"));
             foreach ($imagens_hunter as $imagem) {
                 if(Storage::exists($imagem)){
                     Storage::delete($imagem);
                 }
             }
-            Storage::deleteDirectory("avatars/$decriptado_id");
         }
+        Storage::deleteDirectory("avatars/$decriptado_id");
         HunterModel::where('id', $decriptado_id)->delete();
-        return redirect('/')->with('success_destroy',"$nome não está mais presente no sistema.");
+        return redirect('/')->with('success_destroy',"$nome está agora na lixeira.");
+    }
+
+    public function trashRegister()
+    {
+        $hunter = HunterModel::onlyTrashed()->get();
+        return view('trash', compact('hunter'));
+    }
+
+    public function restoreRegisterTrash($id)
+    {
+        $decriptado_id = Crypt::decrypt($id);
+        $nome = HunterModel::onlyTrashed()->find($decriptado_id)->nome_hunter;
+        $hunter = HunterModel::onlyTrashed()->find($decriptado_id);
+        File::moveDirectory(storage_path("app/trashed/avatars/$decriptado_id"), storage_path("app/avatars/$decriptado_id"));
+        $hunter->restore();
+        return redirect('/')->with('success_restore',"$nome foi restaurado está agora de volta a listagem de HUnters.");
+    }
+
+    public function destroyRegisterTrash($id)
+    {
+        $decriptado_id = Crypt::decrypt($id);
+        $nome = HunterModel::onlyTrashed()->find($decriptado_id)->nome_hunter;
+        $imagens_hunter = explode(',', HunterModel::onlyTrashed()->find($decriptado_id)->imagem_hunter);
+        $hunter = HunterModel::onlyTrashed()->find($decriptado_id);
+        $hunter->forceDelete();
+        if(!empty($imagens_hunter)){
+            foreach ($imagens_hunter as $imagem) {
+                if(Storage::exists("trashed/$imagem")){
+                    Storage::delete("trashed/$imagem");
+                }
+            }
+            Storage::deleteDirectory("trashed/avatars/$decriptado_id");
+        }
+        return redirect('/')->with('success_destroy',"$nome foi excluído(a) permanentemente do sistema.");
     }
 
     public function exportPDF()
@@ -163,8 +198,8 @@ class HunterController extends Controller
         $nome_hunter = DB::table('hunters')->where('id','=', Crypt::decrypt($id))->value('nome_hunter');
         $name_zip = "Hunter $nome_hunter".'.zip';
         if ($zip_archive->open(storage_path($name_zip), ZipArchive::CREATE) == TRUE){
-            $file = File::files(storage_path('app/avatars/'.Crypt::decrypt($id)));
-            foreach($file as $key => $value){
+            $files = File::files(storage_path('app/avatars/'.Crypt::decrypt($id)));
+            foreach($files as $key => $value){
                 $name_file = basename($value);
                 $zip_archive->addFile($value, $name_file);
             }
