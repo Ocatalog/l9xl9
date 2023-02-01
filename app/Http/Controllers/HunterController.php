@@ -59,7 +59,7 @@ class HunterController extends Controller
             $registro->imagem_hunter = implode(',', $imagens_paths);
             $registro->save();
         } else {
-            dd("Não foi possível inserir as imagens de {$validacoes['nome_hunter']}, refaça a operação.");
+            dd("Não foi possível inserir a(s) imagem(ns) de {$validacoes['nome_hunter']}, refaça a operação.");
         }
         return redirect('/')->with('success_store',"{$validacoes['nome_hunter']} está presente no sistema.");
     }
@@ -115,7 +115,7 @@ class HunterController extends Controller
             if(!empty($imagens_paths)) {
                 HunterModel::where('id', $decriptado_id)->update(['imagem_hunter' => implode(',', $imagens_paths)]);
             } else {
-                dd("Não foi possível atualizar as imagens de {$validacoes['nome_hunter']}, refaça a operação.");
+                dd("Não foi possível atualizar a(s) imagem(ns) de {$validacoes['nome_hunter']}, refaça a operação.");
             }
         }
         return redirect('/')->with('success_update',"{$validacoes['nome_hunter']} obteve atualização em suas informações.");
@@ -141,7 +141,7 @@ class HunterController extends Controller
         }
         Storage::deleteDirectory("avatars/$decriptado_id");
         HunterModel::where('id', $decriptado_id)->delete();
-        return redirect('/')->with('success_destroy',"$nome está agora na lixeira.");
+        return redirect('/')->with('success_destroy',"$nome agora está na lixeira.");
     }
 
     public function trashRegister()
@@ -205,7 +205,25 @@ class HunterController extends Controller
             }
             $zip_archive->close();
         } else {
-            dd("Não foi possível realizar a zipagem do avatar de $nome_hunter.");
+            dd("Não foi possível realizar a zipagem da(s) imagem(ns) de $nome_hunter.");
+        }
+        return response()->download(storage_path($name_zip))->deleteFileAfterSend(true);
+    }
+
+    public function downloadZipRegisterTrash($id)
+    {
+        $zip_archive = new ZipArchive();
+        $nome_hunter = DB::table('hunters')->where('id','=', Crypt::decrypt($id))->value('nome_hunter');
+        $name_zip = "Hunter $nome_hunter (at trashed)".'.zip';
+        if ($zip_archive->open(storage_path($name_zip), ZipArchive::CREATE) == TRUE){
+            $files = File::files(storage_path('app/trashed/avatars/'.Crypt::decrypt($id)));
+            foreach($files as $key => $value){
+                $name_file = basename($value);
+                $zip_archive->addFile($value, $name_file);
+            }
+            $zip_archive->close();
+        } else {
+            dd("Não foi possível realizar a zipagem da(s) imagem(ns) de $nome_hunter.");
         }
         return response()->download(storage_path($name_zip))->deleteFileAfterSend(true);
     }

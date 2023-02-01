@@ -16,13 +16,16 @@ Funcionalidade | Status
 Cadastrar Hunter | Funcionando
 Listagem de Hunters cadastrados | Funcionando
 Atualizar determinado Hunter | Funcionando
-Excluir determinado Hunter | Funcionando
+Enviar para a lixeira determinado Hunter | Funcionando
 Validações de formulário | Funcionando
 Filtragem de Hunter(s) | Funcionando
 Alertas de ações feitas | Funcionando
 Exportação de dados para PDF | Funcionando
-Download zipado da(s) foto(s) do Hunter | Funcionando
+Download zipado da(s) foto(s) do Hunter (Na tabela principal e na lixeira) | Funcionando
 Fallback route | Funcionando
+Listar de registros apagados (lixeira) | Funcionando
+Restaurar registro apagado | Funcionando
+Excluir permanentemente determinado registro apagado | Funcionando
 
 <h1 align="center"> Listagem de Hunters </h1>
 
@@ -35,6 +38,10 @@ Fallback route | Funcionando
 <h1 align="center"> Atualização de Hunter </h1>
 
 ![](https://github.com/Iury189/l9xl9/blob/main/public/imagens/Atualizacao.png?raw=true)
+
+<h1 align="center"> Trash (Lixeira de registros) </h1>
+
+![](https://github.com/Iury189/l9xl9/blob/main/public/imagens/Trashed.png?raw=true)
 
 <h1 align="center"> Fallback (Substituindo 404 Not Found) </h1>
 
