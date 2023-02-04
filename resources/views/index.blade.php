@@ -54,9 +54,9 @@
                                     <td title="{{ $hxh->tipo_sangue }}">{{ $hxh->tipo_sangue }}</td>
                                     <td title="{{ $hxh->serial }}">{{ $hxh->serial }}</td>
                                     {{-- <td> {{ json_encode($hxh->propriedades, JSON_UNESCAPED_UNICODE) }}</td> --}}
-                                    <td title="{{ \Carbon\Carbon::parse($hxh->data_cadastro)->format('d/m/Y H:i:s')}}">{{ \Carbon\Carbon::parse($hxh->data_cadastro)->format('d/m/Y H:i:s')}}</td>
-                                    <td title="{{ $hxh->data_atualizacao == $hxh->data_cadastro ? 'Sem atualização' : \Carbon\Carbon::parse($hxh->data_atualizacao)->format('d/m/Y H:i:s')}}">
-                                    {{ $hxh->data_atualizacao == $hxh->data_cadastro ? 'Sem atualização' : \Carbon\Carbon::parse($hxh->data_atualizacao)->format('d/m/Y H:i:s')}}</td>
+                                    <td title="{{ \Carbon\Carbon::parse($hxh->created_at)->format('d/m/Y H:i:s')}}">{{ \Carbon\Carbon::parse($hxh->created_at)->format('d/m/Y H:i:s')}}</td>
+                                    <td title="{{ $hxh->updated_at == $hxh->created_at ? 'Sem atualização' : \Carbon\Carbon::parse($hxh->updated_at)->format('d/m/Y H:i:s')}}">
+                                    {{ $hxh->updated_at == $hxh->created_at ? 'Sem atualização' : \Carbon\Carbon::parse($hxh->updated_at)->format('d/m/Y H:i:s')}}</td>
                                     <td>
                                         <form action="{{ url("delete/".encrypt($hxh->id)) }}" method="POST">
                                             <a href="{{ url("download_zip/".encrypt($hxh->id)) }}" class="btn btn-warning" title="Donwload imagem(ns) de {{ $hxh->nome_hunter }}"><i class="fa fa-file-zipper"></i>&nbsp;Download</a>
