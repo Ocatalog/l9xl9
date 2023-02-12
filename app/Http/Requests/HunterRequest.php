@@ -86,7 +86,7 @@ class HunterRequest extends FormRequest
                 'imagem_hunter.*.required' => 'É obrigatório inserir no mínimo 1 imagem do Hunter.',
                 'imagem_hunter.*.max' => 'Todas as imagens do Hunter devem ocupar no máximo 1024 kB (1 MB) de espaço.',
                 'imagem_hunter.*.image' => 'As extensões permitidas para as imagens são: .jpg, .jpeg, .png, .bmp, .gif, .svg e .webp.',
-                'serial.unique' => 'Houve uma repetição na aleatoriedade do serial.',
+                'serial.unique' => 'Houve uma repetição ao gerar aleatoriamente o serial do Hunter, por conta disso refaça a operação.',
             ],
             'PATCH' => [
                 'nome_hunter.required' => 'É obrigatório definir o nome do Hunter.',
@@ -113,7 +113,7 @@ class HunterRequest extends FormRequest
                 'tipo_sangue.in' => 'Tipo sanguíneo desconhecido, escolha uma das opções válidas.',
                 'imagem_hunter.*.max' => 'Todas as imagens do Hunter devem ocupar no máximo 1024 kB (1 MB) de espaço.',
                 'imagem_hunter.*.image' => 'As extensões permitidas para as imagens são: .jpg, .jpeg, .png, .bmp, .gif, .svg e .webp.',
-                'serial.unique' => 'Houve uma repetição na aleatoriedade do serial.',
+                'serial.unique' => 'Houve uma repetição ao gerar aleatoriamente o serial do Hunter, por conta disso refaça a operação.',
             ],
         };
     }
