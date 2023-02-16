@@ -63,6 +63,54 @@ return [
             'level' => env('LOG_LEVEL', 'debug'),
         ],
 
+        'logRegisterHunter' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/logRegisterHunter.log'),
+            'level' => 'debug',
+        ],
+
+        'logUpdateHunter' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/logUpdateHunter.log'),
+            'level' => 'debug',
+        ],
+
+        'logTrashHunter' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/logTrashHunter.log'),
+            'level' => 'debug',
+        ],
+
+        'logRestoreHunter' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/logRestoreHunter.log'),
+            'level' => 'debug',
+        ],
+
+        'logDeleteHunter' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/logDeleteHunter.log'),
+            'level' => 'debug',
+        ],
+
+        'logZipHunter' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/logZipHunter.log'),
+            'level' => 'debug',
+        ],
+
+        'logZipTrashHunter' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/logZipTrashHunter.log'),
+            'level' => 'debug',
+        ],
+
+        'logExportPDFHunter' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/logExportPDFHunter.log'),
+            'level' => 'debug',
+        ],
+
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),

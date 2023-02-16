@@ -54,7 +54,7 @@
                                     <td title="{{ \Carbon\Carbon::parse($hxh->deleted_at)->format('d/m/Y H:i:s')}}">{{ \Carbon\Carbon::parse($hxh->deleted_at)->format('d/m/Y H:i:s')}}</td>
                                     <td>
                                         <form action="{{ url("delete_register/".encrypt($hxh->id)) }}" method="POST">
-                                            <a href="{{ url("download_zip/".encrypt($hxh->id)) }}" class="btn btn-warning" title="Donwload imagem(ns) de {{ $hxh->nome_hunter }}"><i class="fa fa-file-zipper"></i>&nbsp;Download</a>
+                                            <a href="{{ url("download_zip_trashed/".encrypt($hxh->id)) }}" class="btn btn-warning" title="Donwload imagem(ns) de {{ $hxh->nome_hunter }}"><i class="fa fa-file-zipper"></i>&nbsp;Download</a>
                                             <a href="{{ url("restore_register/".encrypt($hxh->id)) }}" class="btn btn-primary" title="Restaurar {{ $hxh->nome_hunter }}"><i class="fa fa-arrows-rotate"></i>&nbsp;Restaurar</a>
                                             {{ ' ' }} {{ method_field('DELETE') }} {{ csrf_field() }}
                                             <button type="submit" class="btn btn-danger" title="Deletar {{ $hxh->nome_hunter }}"><i class="fa fa-trash"></i>&nbsp;Deletar</button>

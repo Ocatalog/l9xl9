@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\HunterModel;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HunterRequest;
+use App\Models\LoggingModel;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
@@ -61,6 +64,16 @@ class HunterController extends Controller
         } else {
             dd("Não foi possível inserir a(s) imagem(ns) de {$validacoes['nome_hunter']}, refaça a operação.");
         }
+
+        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $ip_user = request()->ip();
+        $mensagem = "{$validacoes['nome_hunter']} foi cadastrado(a) utilizando o IP {$ip_user} em {$data}.";
+        Log::channel('logRegisterHunter')->info($mensagem);
+
+        $log = new LoggingModel();
+        $log->descricao = $mensagem;
+        $log->save();
+
         return redirect('/')->with('success_store',"{$validacoes['nome_hunter']} está presente no sistema.");
     }
 
@@ -118,6 +131,16 @@ class HunterController extends Controller
                 dd("Não foi possível atualizar a(s) imagem(ns) de {$validacoes['nome_hunter']}, refaça a operação.");
             }
         }
+
+        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $ip_user = request()->ip();
+        $mensagem = "{$validacoes['nome_hunter']} teve suas informações atualizadas utilizando o IP {$ip_user} em {$data}.";
+        Log::channel('logUpdateHunter')->info($mensagem);
+
+        $log = new LoggingModel();
+        $log->descricao = $mensagem;
+        $log->save();
+
         return redirect('/')->with('success_update',"{$validacoes['nome_hunter']} obteve atualização em suas informações.");
     }
     /**
@@ -141,6 +164,16 @@ class HunterController extends Controller
         }
         Storage::deleteDirectory("avatars/$decriptado_id");
         HunterModel::where('id', $decriptado_id)->delete();
+
+        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $ip_user = request()->ip();
+        $mensagem = "$nome foi redirecionado(a) para a lixeira utilizando o IP {$ip_user} em {$data}.";
+        Log::channel('logTrashHunter')->info($mensagem);
+
+        $log = new LoggingModel();
+        $log->descricao = $mensagem;
+        $log->save();
+
         return redirect('/')->with('success_destroy',"$nome agora está na lixeira.");
     }
 
@@ -157,6 +190,16 @@ class HunterController extends Controller
         $hunter = HunterModel::onlyTrashed()->find($decriptado_id);
         File::moveDirectory(storage_path("app/trashed/avatars/$decriptado_id"), storage_path("app/avatars/$decriptado_id"));
         $hunter->restore();
+
+        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $ip_user = request()->ip();
+        $mensagem = "$nome foi restaurado(a) da lixeira para a página principal utilizando o IP {$ip_user} em {$data}.";
+        Log::channel('logRestoreHunter')->info($mensagem);
+
+        $log = new LoggingModel();
+        $log->descricao = $mensagem;
+        $log->save();
+
         return redirect('/')->with('success_store',"$nome retornou a listagem de Hunters.");
     }
 
@@ -175,6 +218,16 @@ class HunterController extends Controller
             }
             Storage::deleteDirectory("trashed/avatars/$decriptado_id");
         }
+
+        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $ip_user = request()->ip();
+        $mensagem = "Foi excluído(a) permanentemente da lixeira $nome utilizando o IP {$ip_user} em {$data}.";
+        Log::channel('logDestroyHunter')->info($mensagem);
+
+        $log = new LoggingModel();
+        $log->descricao = $mensagem;
+        $log->save();
+
         return redirect('/')->with('success_destroy',"$nome foi excluído(a) permanentemente do sistema.");
     }
 
@@ -186,6 +239,16 @@ class HunterController extends Controller
             $pdf->setPaper('A4','landscape');
             $pdf->render();
             $pdf->stream();
+
+            $data = Carbon::now()->format('d/m/Y H:i:s');
+            $ip_user = request()->ip();
+            $mensagem = "Foi feito a exportação dos Hunters para PDF utilizando o IP {$ip_user} em {$data}.";
+            Log::channel('logExportPDFHunter')->info($mensagem);
+
+            $log = new LoggingModel();
+            $log->descricao = $mensagem;
+            $log->save();
+
             return $pdf->download(Str::random(10).'.pdf');
         } else {
             return redirect('/')->with('export_pdf_error',"É necessário haver no mínimo 1 registro para exportar em arquivo PDF.");
@@ -207,6 +270,16 @@ class HunterController extends Controller
         } else {
             dd("Não foi possível realizar a zipagem da(s) imagem(ns) de $nome_hunter.");
         }
+
+        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $ip_user = request()->ip();
+        $mensagem = "Foi feito a zipagem da(s) imagem(ns) de $nome_hunter na página inicial utilizando o IP {$ip_user} em {$data}.";
+        Log::channel('logZipHunter')->info($mensagem);
+
+        $log = new LoggingModel();
+        $log->descricao = $mensagem;
+        $log->save();
+
         return response()->download(storage_path($name_zip))->deleteFileAfterSend(true);
     }
 
@@ -223,8 +296,18 @@ class HunterController extends Controller
             }
             $zip_archive->close();
         } else {
-            dd("Não foi possível realizar a zipagem da(s) imagem(ns) de $nome_hunter.");
+            dd("Não foi possível realizar a zipagem da(s) imagem(ns) de $nome_hunter, sendo esse registro localizado na lixeira.");
         }
+
+        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $ip_user = request()->ip();
+        $mensagem = "Foi feito a zipagem da(s) imagem(ns) de $nome_hunter que está na lixeira utilizando o IP {$ip_user} em {$data}.";
+        Log::channel('logZipTrashHunter')->info($mensagem);
+
+        $log = new LoggingModel();
+        $log->descricao = $mensagem;
+        $log->save();
+
         return response()->download(storage_path($name_zip))->deleteFileAfterSend(true);
     }
 

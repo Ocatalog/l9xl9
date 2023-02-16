@@ -31,8 +31,8 @@ Route::controller(HunterController::class)->group(function() {
     Route::delete('/delete/{id}', 'destroy');
     Route::delete('/delete_register/{id}', 'destroyRegisterTrash');
     Route::get('/export_pdf','exportPDF');
-    Route::get('download_zip/{id}', 'downloadZip');
-    Route::get('download_zip/{id}', 'downloadZipRegisterTrash');
+    Route::get('/download_zip/{id}', 'downloadZip');
+    Route::get('/download_zip_trashed/{id}', 'downloadZipRegisterTrash');
 });
 
 Route::fallback(FallbackController::class);
