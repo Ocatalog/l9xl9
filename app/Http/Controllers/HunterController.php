@@ -67,7 +67,7 @@ class HunterController extends Controller
 
         $data = Carbon::now()->format('d/m/Y H:i:s');
         $ip_user = request()->ip();
-        $mensagem = "{$validacoes['nome_hunter']} foi cadastrado(a) utilizando o IP {$ip_user} em {$data}.";
+        $mensagem = "Hunter {$validacoes['nome_hunter']} foi cadastrado(a) utilizando o IP {$ip_user} em {$data}.";
         Log::channel('logRegisterHunter')->info($mensagem);
 
         $log = new LoggingModel();
@@ -134,7 +134,7 @@ class HunterController extends Controller
 
         $data = Carbon::now()->format('d/m/Y H:i:s');
         $ip_user = request()->ip();
-        $mensagem = "{$validacoes['nome_hunter']} teve suas informações atualizadas utilizando o IP {$ip_user} em {$data}.";
+        $mensagem = "Hunter {$validacoes['nome_hunter']} teve suas informações atualizadas utilizando o IP {$ip_user} em {$data}.";
         Log::channel('logUpdateHunter')->info($mensagem);
 
         $log = new LoggingModel();
@@ -167,7 +167,7 @@ class HunterController extends Controller
 
         $data = Carbon::now()->format('d/m/Y H:i:s');
         $ip_user = request()->ip();
-        $mensagem = "$nome foi redirecionado(a) para a lixeira utilizando o IP {$ip_user} em {$data}.";
+        $mensagem = "Hunter $nome foi redirecionado(a) para a lixeira utilizando o IP {$ip_user} em {$data}.";
         Log::channel('logTrashHunter')->info($mensagem);
 
         $log = new LoggingModel();
@@ -193,7 +193,7 @@ class HunterController extends Controller
 
         $data = Carbon::now()->format('d/m/Y H:i:s');
         $ip_user = request()->ip();
-        $mensagem = "$nome foi restaurado(a) da lixeira para a página principal utilizando o IP {$ip_user} em {$data}.";
+        $mensagem = "Hunter $nome foi restaurado(a) da lixeira para a página principal utilizando o IP {$ip_user} em {$data}.";
         Log::channel('logRestoreHunter')->info($mensagem);
 
         $log = new LoggingModel();
@@ -221,7 +221,7 @@ class HunterController extends Controller
 
         $data = Carbon::now()->format('d/m/Y H:i:s');
         $ip_user = request()->ip();
-        $mensagem = "Foi excluído(a) permanentemente da lixeira $nome utilizando o IP {$ip_user} em {$data}.";
+        $mensagem = "HUnter foi excluído(a) permanentemente da lixeira $nome utilizando o IP {$ip_user} em {$data}.";
         Log::channel('logDestroyHunter')->info($mensagem);
 
         $log = new LoggingModel();
@@ -261,7 +261,7 @@ class HunterController extends Controller
         $nome_hunter = DB::table('hunters')->where('id','=', Crypt::decrypt($id))->value('nome_hunter');
         $name_zip = "Hunter $nome_hunter".'.zip';
         if ($zip_archive->open(storage_path($name_zip), ZipArchive::CREATE) == TRUE){
-            $files = File::files(storage_path('app/avatars/'.Crypt::decrypt($id)));
+            $files = File::files(storage_path('app/avatars/' . Crypt::decrypt($id)));
             foreach($files as $key => $value){
                 $name_file = basename($value);
                 $zip_archive->addFile($value, $name_file);
@@ -289,7 +289,7 @@ class HunterController extends Controller
         $nome_hunter = DB::table('hunters')->where('id','=', Crypt::decrypt($id))->value('nome_hunter');
         $name_zip = "Hunter $nome_hunter (at trashed)".'.zip';
         if ($zip_archive->open(storage_path($name_zip), ZipArchive::CREATE) == TRUE){
-            $files = File::files(storage_path('app/trashed/avatars/'.Crypt::decrypt($id)));
+            $files = File::files(storage_path('app/trashed/avatars/' . Crypt::decrypt($id)));
             foreach($files as $key => $value){
                 $name_file = basename($value);
                 $zip_archive->addFile($value, $name_file);
