@@ -28,6 +28,7 @@ class HunterRequest extends FormRequest
         return match ($this->method()) {
             'POST' => [
                 'nome_hunter' => 'required|max:50',
+                'email_hunter' => ['required','max:50','email', Rule::unique('hunters','email_hunter')->ignore($this->id)],
                 'idade_hunter' => 'required|integer|min:13',
                 'altura_hunter' => 'required|numeric|min:1.50|max:2.50',
                 'peso_hunter' => 'required|numeric|min:50.00|max:150.00',
@@ -42,6 +43,7 @@ class HunterRequest extends FormRequest
             ],
             'PATCH' => [
                 'nome_hunter' => 'required|max:50',
+                'email_hunter' => ['required','max:50','email', Rule::unique('hunters','email_hunter')->ignore($this->id)],
                 'idade_hunter' => 'required|integer|min:13',
                 'altura_hunter' => 'required|numeric|min:1.50|max:2.50',
                 'peso_hunter' => 'required|numeric|min:50.00|max:150.00',
@@ -63,6 +65,10 @@ class HunterRequest extends FormRequest
             'POST' => [
                 'nome_hunter.required' => 'É obrigatório definir o nome do Hunter.',
                 'nome_hunter.max' => 'O nome do Hunter deve conter no máximo 50 caracteres.',
+                'email_hunter.required' => 'É obrigatório definir o e-mail do Hunter.',
+                'email_hunter.max' => 'O e-mail do Hunter deve conter no máximo 50 caracteres.',
+                'email_hunter.email' => 'O e-mail do Hunter deve ser um endereço válido.',
+                'email_hunter.unique' => 'Já existe um Hunter com esse endereço de e-mail.',
                 'idade_hunter.required' => 'É obrigatório definir a idade do Hunter.',
                 'idade_hunter.integer' => 'A idade do Hunter precisa ser um valor inteiro.',
                 'idade_hunter.min' => 'A idade mínima do Hunter precisa ser de 13 anos de idade.',
@@ -91,6 +97,10 @@ class HunterRequest extends FormRequest
             'PATCH' => [
                 'nome_hunter.required' => 'É obrigatório definir o nome do Hunter.',
                 'nome_hunter.max' => 'O nome do Hunter deve conter no máximo 50 caracteres.',
+                'email_hunter.required' => 'É obrigatório definir o e-mail do Hunter.',
+                'email_hunter.max' => 'O e-mail do Hunter deve conter no máximo 50 caracteres.',
+                'email_hunter.email' => 'O e-mail do Hunter deve ser um endereço válido.',
+                'email_hunter.unique' => 'Já existe um Hunter com esse endereço de e-mail.',
                 'idade_hunter.required' => 'É obrigatório definir a idade do Hunter.',
                 'idade_hunter.integer' => 'A idade do Hunter precisa ser um valor inteiro.',
                 'idade_hunter.min' => 'A idade mínima do Hunter precisa ser de 13 anos de idade.',

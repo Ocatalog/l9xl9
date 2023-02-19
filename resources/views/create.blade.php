@@ -34,6 +34,12 @@
                             </div>
                             <br>
                             <div class="form_group">
+                                <div for="nome_hunter">E-mail:
+                                    <input type="email" class="form-control" name="email_hunter" placeholder="Digite o e-mail do Hunter" maxlength="50" value="{{ old('email_hunter') }}">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form_group">
                                 <div for="idade_hunter">Idade:
                                     <input type="text" class="form-control" name="idade_hunter" placeholder="Digite a idade do Hunter" onkeypress="$(this).mask('00', {reverse: true});" value="{{ old('idade_hunter') }}">
                                 </div>

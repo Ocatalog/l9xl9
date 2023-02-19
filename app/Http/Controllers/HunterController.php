@@ -74,6 +74,8 @@ class HunterController extends Controller
         $log->descricao = $mensagem;
         $log->save();
 
+        $registro->sendEmailToHunter(); // Enviar e-mail para o endereço eletrônico do HUnter
+
         return redirect('/')->with('success_store',"{$validacoes['nome_hunter']} está presente no sistema.");
     }
 
@@ -140,6 +142,9 @@ class HunterController extends Controller
         $log = new LoggingModel();
         $log->descricao = $mensagem;
         $log->save();
+
+        $hunter = HunterModel::find($decriptado_id);
+        $hunter->sendEmailToHunter(); // Enviar e-mail para o endereço eletrônico do Hunter
 
         return redirect('/')->with('success_update',"{$validacoes['nome_hunter']} obteve atualização em suas informações.");
     }
