@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Address;
 
 class SendEmail extends Mailable
 {
@@ -33,9 +34,11 @@ class SendEmail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Send Email',
-            from: 'iury.developer@gmail.com',
-            to: $this->hunter->email_hunter,
+            subject: "Hunter {$this->hunter->nome_hunter}, seu e-mail está aqui",
+            from: new Address('iury.developer@gmail.com', 'Iury Fernandes'),
+            replyTo: [
+                new Address($this->hunter->email_hunter, "{$this->hunter->nome_hunter}"),
+            ],
         );
     }
 
@@ -49,6 +52,7 @@ class SendEmail extends Mailable
         return new Content(
             view: 'email_message',
             with: [
+                'id' => $this->hunter->id,
                 'nome_hunter' => $this->hunter->nome_hunter,
                 'email_hunter' => $this->hunter->email_hunter,
                 'idade_hunter' => $this->hunter->idade_hunter,
@@ -57,6 +61,7 @@ class SendEmail extends Mailable
                 'tipo_hunter' => $this->hunter->tipo_hunter,
                 'tipo_nen' => $this->hunter->tipo_nen,
                 'tipo_sangue' => $this->hunter->tipo_sangue,
+                'imagem_hunter' => $this->hunter->imagem_hunter,
                 'serial' => $this->hunter->serial,
             ],
         );

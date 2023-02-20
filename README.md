@@ -25,6 +25,7 @@ Download zipado da(s) foto(s) do Hunter (Na tabela principal e na lixeira) | Fun
 Fallback route | Funcionando
 Listar de registros apagados (lixeira) | Funcionando
 Restaurar registro apagado | Funcionando
+Envio de e-mails | Funcionando
 Excluir permanentemente determinado registro apagado | Funcionando
 
 <h1 align="center"> Listagem de Hunters </h1>
@@ -46,3 +47,7 @@ Excluir permanentemente determinado registro apagado | Funcionando
 <h1 align="center"> Fallback (Substituindo 404 Not Found) </h1>
 
 ![](https://github.com/Iury189/l9xl9/blob/main/public/imagens/Fallback.png?raw=true)
+
+<h1 align="center"> Email enviado </h1>
+
+![](https://github.com/Iury189/l9xl9/blob/main/public/imagens/Email.png?raw=true)

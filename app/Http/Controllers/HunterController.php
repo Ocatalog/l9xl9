@@ -74,7 +74,16 @@ class HunterController extends Controller
         $log->descricao = $mensagem;
         $log->save();
 
-        $registro->sendEmailToHunter(); // Enviar e-mail para o endereço eletrônico do HUnter
+        $registro->sendEmailToHunter(); // Enviar e-mail para o endereço eletrônico do Hunter
+
+        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $ip_user = request()->ip();
+        $mensagem = "A solicitação de envio de e-mails foi requerida pelo IP {$ip_user} em {$data} do(a) Hunter {$validacoes['nome_hunter']} (ID Nº $registro->id).";
+        Log::channel('logEmailSend')->info($mensagem);
+
+        $log = new LoggingModel();
+        $log->descricao = "Uma mensagem foi enviada para o e-mail de {$validacoes['nome_hunter']} (ID Nº $registro->id).";
+        $log->save();
 
         return redirect('/')->with('success_store',"{$validacoes['nome_hunter']} está presente no sistema.");
     }
@@ -145,6 +154,15 @@ class HunterController extends Controller
 
         $hunter = HunterModel::find($decriptado_id);
         $hunter->sendEmailToHunter(); // Enviar e-mail para o endereço eletrônico do Hunter
+
+        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $ip_user = request()->ip();
+        $mensagem = "A solicitação de envio de e-mails foi requerida pelo IP {$ip_user} em {$data} do(a) Hunter {$validacoes['nome_hunter']} (ID Nº $decriptado_id).";
+        Log::channel('logEmailSend')->info($mensagem);
+
+        $log = new LoggingModel();
+        $log->descricao = "Uma mensagem foi enviada para o e-mail de {$validacoes['nome_hunter']} (ID Nº $decriptado_id).";
+        $log->save();
 
         return redirect('/')->with('success_update',"{$validacoes['nome_hunter']} obteve atualização em suas informações.");
     }

@@ -117,6 +117,12 @@ return [
             'level' => 'debug',
         ],
 
+        'logEmailSend' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/logEmailSend.log'),
+            'level' => 'debug',
+        ],
+
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
