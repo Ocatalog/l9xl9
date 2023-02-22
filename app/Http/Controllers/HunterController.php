@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
+use Twilio\Rest\Client;
 
 class HunterController extends Controller
 {
@@ -65,7 +66,7 @@ class HunterController extends Controller
             dd("Não foi possível inserir a(s) imagem(ns) de {$validacoes['nome_hunter']}, refaça a operação.");
         }
 
-        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $data = Carbon::now()->format('d/m/Y H:i:s A');
         $ip_user = request()->ip();
         $mensagem = "Hunter {$validacoes['nome_hunter']} foi cadastrado(a) utilizando o IP {$ip_user} em {$data}.";
         Log::channel('logRegisterHunter')->info($mensagem);
@@ -76,7 +77,7 @@ class HunterController extends Controller
 
         $registro->sendEmailToHunter(); // Enviar e-mail para o endereço eletrônico do Hunter
 
-        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $data = Carbon::now()->format('d/m/Y H:i:s A');
         $ip_user = request()->ip();
         $mensagem = "A solicitação de envio de e-mails foi requerida pelo IP {$ip_user} em {$data} do(a) Hunter {$validacoes['nome_hunter']} (ID Nº $registro->id).";
         Log::channel('logEmailSend')->info($mensagem);
@@ -84,6 +85,17 @@ class HunterController extends Controller
         $log = new LoggingModel();
         $log->descricao = "Uma mensagem foi enviada para o e-mail de {$validacoes['nome_hunter']} (ID Nº $registro->id).";
         $log->save();
+        // Mensagem automática de Whatsapp utilizando o Twilio
+        $sid = env('TWILIO_ACCOUNT_SID');
+        $token = env('TWILIO_AUTH_TOKEN');
+        $twilio = new Client($sid, $token);
+
+        $twilio->messages->create("whatsapp:+557798199998", // Receptor
+            array(
+                "from" => "whatsapp:+14155238886", // Remetente
+                "body" => "*Hunter {$validacoes['nome_hunter']}* agora está presente no sistema pelo IP {$ip_user} em {$data}."
+            )
+        );
 
         return redirect('/')->with('success_store',"{$validacoes['nome_hunter']} está presente no sistema.");
     }
@@ -143,7 +155,7 @@ class HunterController extends Controller
             }
         }
 
-        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $data = Carbon::now()->format('d/m/Y H:i:s A');
         $ip_user = request()->ip();
         $mensagem = "Hunter {$validacoes['nome_hunter']} teve suas informações atualizadas utilizando o IP {$ip_user} em {$data}.";
         Log::channel('logUpdateHunter')->info($mensagem);
@@ -155,7 +167,7 @@ class HunterController extends Controller
         $hunter = HunterModel::find($decriptado_id);
         $hunter->sendEmailToHunter(); // Enviar e-mail para o endereço eletrônico do Hunter
 
-        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $data = Carbon::now()->format('d/m/Y H:i:s A');
         $ip_user = request()->ip();
         $mensagem = "A solicitação de envio de e-mails foi requerida pelo IP {$ip_user} em {$data} do(a) Hunter {$validacoes['nome_hunter']} (ID Nº $decriptado_id).";
         Log::channel('logEmailSend')->info($mensagem);
@@ -188,7 +200,7 @@ class HunterController extends Controller
         Storage::deleteDirectory("avatars/$decriptado_id");
         HunterModel::where('id', $decriptado_id)->delete();
 
-        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $data = Carbon::now()->format('d/m/Y H:i:s A');
         $ip_user = request()->ip();
         $mensagem = "Hunter $nome foi redirecionado(a) para a lixeira utilizando o IP {$ip_user} em {$data}.";
         Log::channel('logTrashHunter')->info($mensagem);
@@ -214,7 +226,7 @@ class HunterController extends Controller
         File::moveDirectory(storage_path("app/trashed/avatars/$decriptado_id"), storage_path("app/avatars/$decriptado_id"));
         $hunter->restore();
 
-        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $data = Carbon::now()->format('d/m/Y H:i:s A');
         $ip_user = request()->ip();
         $mensagem = "Hunter $nome foi restaurado(a) da lixeira para a página principal utilizando o IP {$ip_user} em {$data}.";
         Log::channel('logRestoreHunter')->info($mensagem);
@@ -242,7 +254,7 @@ class HunterController extends Controller
             Storage::deleteDirectory("trashed/avatars/$decriptado_id");
         }
 
-        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $data = Carbon::now()->format('d/m/Y H:i:s A');
         $ip_user = request()->ip();
         $mensagem = "HUnter foi excluído(a) permanentemente da lixeira $nome utilizando o IP {$ip_user} em {$data}.";
         Log::channel('logDestroyHunter')->info($mensagem);
@@ -263,7 +275,7 @@ class HunterController extends Controller
             $pdf->render();
             $pdf->stream();
 
-            $data = Carbon::now()->format('d/m/Y H:i:s');
+            $data = Carbon::now()->format('d/m/Y H:i:s A');
             $ip_user = request()->ip();
             $mensagem = "Foi feito a exportação dos Hunters para PDF utilizando o IP {$ip_user} em {$data}.";
             Log::channel('logExportPDFHunter')->info($mensagem);
@@ -294,7 +306,7 @@ class HunterController extends Controller
             dd("Não foi possível realizar a zipagem da(s) imagem(ns) de $nome_hunter.");
         }
 
-        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $data = Carbon::now()->format('d/m/Y H:i:s A');
         $ip_user = request()->ip();
         $mensagem = "Foi feito a zipagem da(s) imagem(ns) de $nome_hunter na página inicial utilizando o IP {$ip_user} em {$data}.";
         Log::channel('logZipHunter')->info($mensagem);
@@ -322,7 +334,7 @@ class HunterController extends Controller
             dd("Não foi possível realizar a zipagem da(s) imagem(ns) de $nome_hunter, sendo esse registro localizado na lixeira.");
         }
 
-        $data = Carbon::now()->format('d/m/Y H:i:s');
+        $data = Carbon::now()->format('d/m/Y H:i:s A');
         $ip_user = request()->ip();
         $mensagem = "Foi feito a zipagem da(s) imagem(ns) de $nome_hunter que está na lixeira utilizando o IP {$ip_user} em {$data}.";
         Log::channel('logZipTrashHunter')->info($mensagem);

@@ -35,7 +35,7 @@ class SendEmail extends Mailable
     {
         return new Envelope(
             subject: "Hunter {$this->hunter->nome_hunter}, seu e-mail está aqui",
-            from: new Address('iury.developer@gmail.com', 'Iury Fernandes'),
+            from: new Address('iury@email.com', 'Iury Fernandes'),
             replyTo: [
                 new Address($this->hunter->email_hunter, "{$this->hunter->nome_hunter}"),
             ],

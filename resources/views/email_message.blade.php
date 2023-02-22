@@ -10,10 +10,10 @@
     </tr>
     <tr>
         <td style="padding: 20px;">
-            <p><strong>ID:</strong> {{ $id }}</p>
+            <p><strong>ID:</strong>Nº {{ $id }}</p>
             <p><strong>Nome:</strong> {{ $nome_hunter }}</p>
             <p><strong>Email:</strong> {{ $email_hunter }}</p>
-            <p><strong>Idade:</strong> {{ $idade_hunter }}</p>
+            <p><strong>Idade:</strong> {{ $idade_hunter }} anos</p>
             <p><strong>Altura:</strong> {{ $altura_hunter }} m</p>
             <p><strong>Peso:</strong> {{ $peso_hunter }} kg</p>
             <p><strong>Tipo:</strong> {{ $tipo_hunter }}</p>
