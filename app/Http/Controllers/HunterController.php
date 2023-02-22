@@ -85,14 +85,15 @@ class HunterController extends Controller
         $log = new LoggingModel();
         $log->descricao = "Uma mensagem foi enviada para o e-mail de {$validacoes['nome_hunter']} (ID Nº $registro->id).";
         $log->save();
+
         // Mensagem automática de Whatsapp utilizando o Twilio
         $sid = env('TWILIO_ACCOUNT_SID');
         $token = env('TWILIO_AUTH_TOKEN');
         $twilio = new Client($sid, $token);
 
-        $twilio->messages->create("whatsapp:+557798199998", // Receptor
+        $twilio->messages->create("whatsapp:+557712345678", // Receptor
             array(
-                "from" => "whatsapp:+14155238886", // Remetente
+                "from" => "whatsapp:+14155238886", // Emissor
                 "body" => "*Hunter {$validacoes['nome_hunter']}* agora está presente no sistema pelo IP {$ip_user} em {$data}."
             )
         );
